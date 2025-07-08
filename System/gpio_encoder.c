@@ -1,4 +1,4 @@
-#include "encoder.h"
+#include "gpio_encoder.h"
 
 //定义编码器数量
 #define encoder_num 2
@@ -24,7 +24,6 @@ void GROUP1_IRQHandler(void){
 
   for(int i = 0; i < encoder_num; i++){
 uint32_t encoder_itstatus = DL_GPIO_getEnabledInterruptStatus(encoder[i].gpio_port, encoder[i].EncoderA_PIN| encoder[i].EncoderB_PIN| encoder[i].EncoderC_PIN| encoder[i].EncoderD_PIN);
-
 
    if(encoder_itstatus & encoder[i].EncoderA_PIN)
    {

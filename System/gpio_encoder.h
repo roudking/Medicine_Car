@@ -1,5 +1,5 @@
-#ifndef _ENCODER_H
-#define _ENCODER_H
+#ifndef GPIO_ENCODER_H
+#define GPIO_ENCODER_H
 
 #include <ti/driverlib/dl_gpio.h>
 
