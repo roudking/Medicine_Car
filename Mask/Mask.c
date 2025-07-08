@@ -20,22 +20,20 @@ void Mask_start(void)
 // //树莓派串口初始化
 
 
-
 // //开启任务定时中断
-//    tim_it_start(Mask_Timer_INST,Mask_Timer_INST_INT_IRQN);
+   tim_it_start(Mask_Timer_INST,Mask_Timer_INST_INT_IRQN);
 	
 }
 
-static void Mask_Timer_INST_IRQHandler(void)
+void Mask_Timer_INST_IRQHandler(void)
 { 
 	Driver_getmotor_currentspeed(&(car.motor1));
 	Driver_getmotor_currentspeed(&(car.motor2));
 
-    Driver_setmotorpwm(&(car.motor1),3000,&(car.motor2),3000);
+    Driver_setmotorpwm(&(car.motor1),-6000,&(car.motor2),-6000);
 
     Debugger_printf("%d,%d\n",car.motor1.currentspeed,car.motor2.currentspeed);
-
-    Driver_setspeed(&(car.motor1),&(car.motor2));
+    // Driver_setspeed(&(car.motor1),&(car.umotor2));
 
 }
 

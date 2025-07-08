@@ -10,7 +10,7 @@
 
 // 在某个公共头文件里（或 Debugger_printf 前面）加上：
 #define Debugger_UART Debugger_UART_INST
-#define Debugger_printf(fmt, ...)  usart_printf(&Debugger_UART, fmt, ##__VA_ARGS__)
+#define Debugger_printf(fmt, ...)  usart_printf(Debugger_UART, fmt, ##__VA_ARGS__)
 
 void usart_printf(UART_Regs *uart,char *fmt, ...);
 void usart_rx_it_start(IRQn_Type IRQn);
