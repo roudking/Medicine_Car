@@ -30,7 +30,7 @@ void Mask_Timer_INST_IRQHandler(void)
 	Driver_getmotor_currentspeed(&(car.motor1));
 	Driver_getmotor_currentspeed(&(car.motor2));
 
-    Driver_setmotorpwm(&(car.motor1),-6000,&(car.motor2),-6000);
+    Driver_setmotorpwm(&(car.motor1),0,&(car.motor2),0);
 
     Debugger_printf("%d,%d\n",car.motor1.currentspeed,car.motor2.currentspeed);
     // Driver_setspeed(&(car.motor1),&(car.umotor2));
