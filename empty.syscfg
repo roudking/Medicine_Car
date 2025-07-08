@@ -17,6 +17,10 @@ const PWM1   = PWM.addInstance();
 const PWM2   = PWM.addInstance();
 const PWM3   = PWM.addInstance();
 const SYSCTL = scripting.addModule("/ti/driverlib/SYSCTL");
+const TIMER  = scripting.addModule("/ti/driverlib/TIMER", {}, false);
+const TIMER1 = TIMER.addInstance();
+const UART   = scripting.addModule("/ti/driverlib/UART", {}, false);
+const UART1  = UART.addInstance();
 
 /**
  * Write custom configuration values to the imported modules.
@@ -137,6 +141,25 @@ PWM3.ccp0PinConfig.passedPeripheralType = scripting.forceWrite("Digital");
 SYSCTL.forceDefaultClkConfig = true;
 SYSCTL.clockTreeEn           = true;
 
+TIMER1.$name              = "Mask_Timer";
+TIMER1.timerMode          = "PERIODIC_UP";
+TIMER1.timerPeriod        = "10 ms";
+TIMER1.timerClkPrescale   = 40;
+TIMER1.interrupts         = ["LOAD"];
+TIMER1.peripheral.$assign = "TIMG8";
+
+UART1.$name                            = "Debugger_UART";
+UART1.targetBaudRate                   = 115200;
+UART1.txPinConfig.$name                = "ti_driverlib_gpio_GPIOPinGeneric5";
+UART1.txPinConfig.direction            = scripting.forceWrite("OUTPUT");
+UART1.txPinConfig.hideOutputInversion  = scripting.forceWrite(false);
+UART1.txPinConfig.onlyInternalResistor = scripting.forceWrite(false);
+UART1.txPinConfig.passedPeripheralType = scripting.forceWrite("Digital");
+UART1.rxPinConfig.$name                = "ti_driverlib_gpio_GPIOPinGeneric6";
+UART1.rxPinConfig.hideOutputInversion  = scripting.forceWrite(false);
+UART1.rxPinConfig.onlyInternalResistor = scripting.forceWrite(false);
+UART1.rxPinConfig.passedPeripheralType = scripting.forceWrite("Digital");
+
 /**
  * Pinmux solution for unlocked pins/peripherals. This ensures that minor changes to the automatic solver in a future
  * version of the tool will not impact the pinmux you originally saw.  These lines can be completely deleted in order to
@@ -158,3 +181,6 @@ PWM1.peripheral.ccp1Pin.$suggestSolution     = "PA13";
 PWM2.peripheral.ccp0Pin.$suggestSolution     = "PA21";
 PWM2.peripheral.ccp1Pin.$suggestSolution     = "PA22";
 PWM3.peripheral.ccp0Pin.$suggestSolution     = "PA17";
+UART1.peripheral.$suggestSolution            = "UART0";
+UART1.peripheral.rxPin.$suggestSolution      = "PA1";
+UART1.peripheral.txPin.$suggestSolution      = "PA0";

@@ -37,6 +37,10 @@
                                     <listOptionValue value="${COM_TI_MSPM0_SDK_INCLUDE_PATH}"/>
                                     <listOptionValue value="${SYSCONFIG_TOOL_INCLUDE_PATH}"/>
                                     <listOptionValue value="${PROJECT_ROOT}"/>
+                                    <listOptionValue value="${PROJECT_ROOT}/Servo"/>
+                                    <listOptionValue value="${PROJECT_ROOT}/Laser"/>
+                                    <listOptionValue value="${PROJECT_ROOT}/Mask"/>
+                                    <listOptionValue value="${PROJECT_ROOT}/Beep"/>
                                     <listOptionValue value="${PROJECT_ROOT}/Driver"/>
                                     <listOptionValue value="${PROJECT_ROOT}/System"/>
                                     <listOptionValue value="${PROJECT_ROOT}/${ConfigName}"/>

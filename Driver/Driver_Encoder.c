@@ -1,7 +1,6 @@
 #include "Driver_Encoder.h"
 
-
-void DriverEncoder_init(DRIVER_CONFIG driver)
+void DriverEncoder_start(DRIVER_CONFIG driver)
 {
      encoder_init(driver.encoder_port.encoder_id, driver.encoder_port);
      encoder_start(driver.encoder_port.encoder_id);
