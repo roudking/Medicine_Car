@@ -1,7 +1,7 @@
 #ifndef _BEEP_GPIO_H
 #define _BEEP_GPIO_H
 
-#include "beep_config.h"
+#include "Beep_config.h"
 
 void beep_on(BEEP_CONFIG config);
 void beep_off(BEEP_CONFIG config);
