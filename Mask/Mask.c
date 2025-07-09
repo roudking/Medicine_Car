@@ -4,13 +4,13 @@
 CAR car;
 //已整定pid
 PID pidL = {
-    .kp = 150.0,
-    .ki =35.0,
+    .kp = 155.5,
+    .ki =36.0,
     .kd = 0.0
 };
 PID pidR = {
-    .kp = 200.0,
-    .ki = 11.5,
+    .kp = 156.5,
+    .ki = 40.0,
     .kd = 0.0
 };
 
@@ -42,30 +42,35 @@ void Mask_Timer_INST_IRQHandler(void)
 	static int i = 0;
   if(i<time/10)
 	{
-   Driver_setmotor_targetspeed(&(car.motor1),0.0);
+   Driver_setmotor_targetspeed(&(car.motor2),0.0);
+      Driver_setmotor_targetspeed(&(car.motor1),0.0);
 		i++;
 	}
 	else if(i < 2*time/10)
 	{
-  Driver_setmotor_targetspeed(&(car.motor1),25.0);
+  Driver_setmotor_targetspeed(&(car.motor2),25.0);
+ Driver_setmotor_targetspeed(&(car.motor1),25.0);
 		i++;	
 	}
 	else if(i < 3*time/10)
 	{
-  Driver_setmotor_targetspeed(&(car.motor1),40.0);
+   Driver_setmotor_targetspeed(&(car.motor1),40.0);
+   Driver_setmotor_targetspeed(&(car.motor2),40.0);
 		i++;	
 	}    
 	else if(i < 4*time/10)
 	{
-  Driver_setmotor_targetspeed(&(car.motor1),25.0);
+   Driver_setmotor_targetspeed(&(car.motor1),25.0);
+   Driver_setmotor_targetspeed(&(car.motor2),25.0);
 		i++;
 	}
     else {
-      Driver_setmotor_targetspeed(&(car.motor1),0.0);
+      Driver_setmotor_targetspeed(&(car.motor1),0.0);  
+      Driver_setmotor_targetspeed(&(car.motor2),0.0);
     }
 
 
-    Debugger_printf("%d\n",car.motor1.currentspeed);
+    Debugger_printf("%d,%d\n",car.motor1.currentspeed,car.motor2.currentspeed);
     Driver_setspeed(&(car.motor1),&(car.motor2));
 
 }
