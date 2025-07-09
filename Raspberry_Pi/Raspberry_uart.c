@@ -35,8 +35,8 @@ void Debugger_UART_INST_IRQHandler(void)
             strcpy(raspberry_cmd, json_command->valuestring); // 更新全局变量cmd
   				if(strcmp(raspberry_cmd,"ping") == 0)
 				 {
-					// // 发送响应
-					// Raspberry_printf("{\"cmd\":\"ping\",\"raspult\":\"pong\"}\n");
+					// 发送响应
+					Raspberry_printf("{\"cmd\":\"ping\",\"raspult\":\"pong\"}\n");
 				}
 				else if(strcmp(raspberry_cmd,"spin") == 0)
 				{

@@ -7,6 +7,7 @@
 #include "Servo.h"
 #include "serial.h"
 #include "my_delay.h"
+#include "Raspberry_uart.h"
 
 typedef struct 
 {

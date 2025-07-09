@@ -16,19 +16,20 @@ PID pidR = {
 
 void Mask_start(void)
 {
-// //电机初始化
+    //电机初始化
 	 Driver_creatmotor(&(car.motor1),pidL,leftdriver);
 	 Driver_creatmotor(&(car.motor2),pidR,rightdriver);
      Driver_init(&(car.motor1));
      Driver_init(&(car.motor2));
 
-// //舵机初始化
+    //舵机初始化
+     
 
-// //树莓派串口初始化
-
+    //树莓派串口初始化
+     Raspberry_uartinit();
   
-// //开启任务定时中断
-   tim_it_start(Mask_Timer_INST,Mask_Timer_INST_INT_IRQN);
+    //开启任务定时中断
+     tim_it_start(Mask_Timer_INST,Mask_Timer_INST_INT_IRQN);
 	
 }
 
@@ -38,7 +39,7 @@ void Mask_Timer_INST_IRQHandler(void)
 	Driver_getmotor_currentspeed(&(car.motor2));
 
 
-    Debugger_printf("%d,%d\n",car.motor1.currentspeed,car.motor2.currentspeed);
+    // Debugger_printf("%d,%d\n",car.motor1.currentspeed,car.motor2.currentspeed);
     Driver_setspeed(&(car.motor1),&(car.motor2));
 
 }
