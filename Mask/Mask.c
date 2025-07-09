@@ -38,38 +38,56 @@ void Mask_Timer_INST_IRQHandler(void)
 	Driver_getmotor_currentspeed(&(car.motor2));
 
 //TEST代码
-	int time = 3000;
+	int time = 1500;
 	static int i = 0;
   if(i<time/10)
 	{
-   Driver_setmotor_targetspeed(&(car.motor2),0.0);
-      Driver_setmotor_targetspeed(&(car.motor1),0.0);
+    Driver_setmotor_targetspeed(&(car.motor2),0.0);
+    Driver_setmotor_targetspeed(&(car.motor1),0.0);
 		i++;
 	}
 	else if(i < 2*time/10)
 	{
-  Driver_setmotor_targetspeed(&(car.motor2),25.0);
- Driver_setmotor_targetspeed(&(car.motor1),25.0);
+    Driver_setmotor_targetspeed(&(car.motor2),25.0);
+    Driver_setmotor_targetspeed(&(car.motor1),25.0);
 		i++;	
 	}
 	else if(i < 3*time/10)
 	{
-   Driver_setmotor_targetspeed(&(car.motor1),40.0);
-   Driver_setmotor_targetspeed(&(car.motor2),40.0);
+    Driver_setmotor_targetspeed(&(car.motor1),40.0);
+    Driver_setmotor_targetspeed(&(car.motor2),40.0);
 		i++;	
 	}    
 	else if(i < 4*time/10)
 	{
-   Driver_setmotor_targetspeed(&(car.motor1),25.0);
-   Driver_setmotor_targetspeed(&(car.motor2),25.0);
+    Driver_setmotor_targetspeed(&(car.motor1),25.0);
+    Driver_setmotor_targetspeed(&(car.motor2),25.0);
 		i++;
 	}
-    else {
-      Driver_setmotor_targetspeed(&(car.motor1),0.0);  
-      Driver_setmotor_targetspeed(&(car.motor2),0.0);
+    else if(i < 5*time/10){
+    Driver_setmotor_targetspeed(&(car.motor1),0.0);  
+    Driver_setmotor_targetspeed(&(car.motor2),0.0);
+    i++;
     }
-
-
+  else if(i < 6*time/10){
+    Driver_setmotor_targetspeed(&(car.motor1),-25.0);  
+    Driver_setmotor_targetspeed(&(car.motor2),-25.0);
+    i++;
+    }
+  else if(i < 7*time/10){
+    Driver_setmotor_targetspeed(&(car.motor1),-40.0);  
+    Driver_setmotor_targetspeed(&(car.motor2),-40.0);
+    i++;
+    }
+  else if(i < 8*time/10){
+    Driver_setmotor_targetspeed(&(car.motor1),-25.0);  
+    Driver_setmotor_targetspeed(&(car.motor2),-25.0);
+    i++;
+    }
+  else{
+    Driver_setmotor_targetspeed(&(car.motor1),0.0);  
+    Driver_setmotor_targetspeed(&(car.motor2),0.0);
+  }
     Debugger_printf("%d,%d\n",car.motor1.currentspeed,car.motor2.currentspeed);
     Driver_setspeed(&(car.motor1),&(car.motor2));
 
