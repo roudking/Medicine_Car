@@ -1,15 +1,15 @@
 #include "my_delay.h"
 
 //实现微秒级延时
-void delay_us(uint32_t i)
+void delay_us(uint32_t us)
 {
-   delay_cycles((i/1000000)*CPUCLK_FREQ);
+    while(us--)
+        delay_cycles(CPUCLK_FREQ/1000000);
 }
 
 //实现毫秒级延时
-void delay_ms(uint32_t nms)
+void delay_ms(uint32_t ms)
 {
-    for (uint32_t i = 0; i < nms; i++) {
-        delay_us(1000);  // ��ʱ 1 ms
-    }
+    while(ms--)
+	    delay_cycles(CPUCLK_FREQ/1000);
 }
