@@ -28,7 +28,12 @@ extern uint32_t uiRegDataLen;
   //101z轴置零
 void Myhwt101_resetz(void)                  
 {
-	WitWriteReg(0x76, 0x00);
+    //FF AA 69 88 B5
+    uint8_t unlock_chars[7] = {0xFF,0xAA,0x69,0x88,0xB5};
+    Uart2Send(unlock_chars,6);
+
+	uint8_t reset_chars[7] = {0xFF,0xAA,0x76,0x00,0x00};
+    Uart2Send(reset_chars,6);
 	delay_ms(2000);
 }
 
@@ -42,7 +47,8 @@ void Myhwt101_init(void)
 	Myhwt101_resetz();
 }
 
-void Myhwt101_getdata(HWT101_DATA *hwt_data)
+
+void Myhwt101_getdata(IMU *hwt_data)
 {
 		CopeWitData(ucRegIndex,usRegDataBuff,uiRegDataLen);
 		if(s_cDataUpdate1 || s_cDataUpdate2 ||s_cDataUpdate3 ||s_cDataUpdate4)

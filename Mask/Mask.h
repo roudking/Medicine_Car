@@ -15,6 +15,7 @@ typedef struct
     MOTOR motor1;
     MOTOR motor2;
     SERVO servo;
+    IMU imu;
 }CAR;
 
 void Mask_start(void);

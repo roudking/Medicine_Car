@@ -23,10 +23,12 @@ void Mask_start(void)
      Driver_init(&(car.motor2));
 
     //舵机初始化
-     
 
     //树莓派串口初始化
      Raspberry_uartinit();
+
+    //陀螺仪初始化
+     Myhwt101_init(); 
   
     //开启任务定时中断
      tim_it_start(Mask_Timer_INST,Mask_Timer_INST_INT_IRQN);
@@ -38,8 +40,13 @@ void Mask_Timer_INST_IRQHandler(void)
 	Driver_getmotor_currentspeed(&(car.motor1));
 	Driver_getmotor_currentspeed(&(car.motor2));
 
+    Myhwt101_getdata(&(car.imu));
 
+    //输出速度信息    
     // Debugger_printf("%d,%d\n",car.motor1.currentspeed,car.motor2.currentspeed);
+    //输出角度信息
+    Debugger_printf("%.3f\n",car.imu.fAngle[yaw_id]);
+
     Driver_setspeed(&(car.motor1),&(car.motor2));
 
 }

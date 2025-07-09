@@ -14,12 +14,12 @@ typedef struct
 {
   	float fAcc[3];
    	float fGyro[3];
-	  float fAngle[3];
+	float fAngle[3];
 	
-}HWT101_DATA;
+}IMU;
 
 void Myhwt101_init(void);
-void Myhwt101_getdata(HWT101_DATA *hwt_data);
+void Myhwt101_getdata(IMU *hwt_data);
 void Myhwt101_resetz(void);
 
 
