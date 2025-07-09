@@ -34,3 +34,8 @@ void usart_transmit(UART_Regs *uart,unsigned char *p_data, unsigned int uiSize)
 {	
     while(*p_data != '\0')  DL_UART_transmitDataBlocking(uart, *p_data++);
 }
+
+char usart_receivebyte(UART_Regs *uart)
+{
+     return DL_UART_Main_receiveData(uart);
+}

@@ -16,6 +16,6 @@ void usart_printf(UART_Regs *uart,char *fmt, ...);
 void usart_rx_it_start(IRQn_Type IRQn);
 void usart_rx_it_stop(IRQn_Type IRQn);
 void usart_transmit(UART_Regs *uart,unsigned char *p_data, unsigned int uiSize);
-
+char usart_receivebyte(UART_Regs *uart);
 
 #endif

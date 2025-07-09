@@ -163,6 +163,7 @@ TIMER1.peripheral.$assign = "TIMG8";
 
 UART1.$name                            = "Debugger_UART";
 UART1.targetBaudRate                   = 115200;
+UART1.enabledInterrupts                = ["RX"];
 UART1.peripheral.$assign               = "UART0";
 UART1.peripheral.rxPin.$assign         = "PA11";
 UART1.peripheral.txPin.$assign         = "PA10";
