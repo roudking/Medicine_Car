@@ -14,6 +14,12 @@ PID pidR = {
     .kd = 0.0
 };
 
+PID pidtrance = {
+    .kp = 1.0,
+    .ki = 0.00,
+    .kd = 0.07,
+    .out_xianfu = 6.0
+};
 void Mask_start(void)
 {
     //电机初始化
@@ -30,6 +36,9 @@ void Mask_start(void)
     //陀螺仪初始化
      Myhwt101_init(); 
      Myhwt101_resetz(&(car.imu));
+
+    //设置trancePID
+     Car_settrancepid(&car, pidtrance);
   
     //开启任务定时中断
      tim_it_start(Mask_Timer_INST,Mask_Timer_INST_INT_IRQN);
@@ -43,11 +52,16 @@ void Mask_Timer_INST_IRQHandler(void)
 
     Myhwt101_getdata(&(car.imu));
 
+    float delta = Car_trancepidcal(&car);
+    float base_speed = 25.0;
+    Driver_setmotor_targetspeed(&(car.motor1), base_speed - delta);
+    Driver_setmotor_targetspeed(&(car.motor2), base_speed + delta);
+
     //输出速度信息    
-    // Debugger_printf("%d,%d\n",car.motor1.currentspeed,car.motor2.currentspeed);
+    Debugger_printf("%d,%d\n",car.motor1.currentspeed,car.motor2.currentspeed);
     //输出角度信息
     // Debugger_printf("%.3f,%.3f,%.3f\n",car.imu.current_yaw,car.imu.real_yaw,car.imu.zero_yaw);
-    Debugger_printf("%.3f,%.3f,%.3f\n",car.imu.real_yaw,car.imu.zero_yaw,car.imu.current_yaw);
+    // Debugger_printf("%.3f,%.3f,%.3f,%.3f\n",car.imu.real_yaw,car.imu.zero_yaw,car.imu.current_yaw,delta);
 
 
     Driver_setspeed(&(car.motor1),&(car.motor2));

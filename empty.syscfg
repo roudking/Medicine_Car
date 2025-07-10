@@ -160,6 +160,7 @@ TIMER1.timerMode          = "PERIODIC_UP";
 TIMER1.timerPeriod        = "10 ms";
 TIMER1.timerClkPrescale   = 40;
 TIMER1.interrupts         = ["LOAD"];
+TIMER1.interruptPriority  = "2";
 TIMER1.peripheral.$assign = "TIMG8";
 
 UART1.$name                            = "Debugger_UART";
