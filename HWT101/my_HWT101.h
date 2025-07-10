@@ -19,12 +19,14 @@ typedef struct
     float current_yaw;
     float last_yaw;
     float real_yaw;
+
+    float zero_yaw;
 	
 }IMU;
 
 void Myhwt101_init(void);
 void Myhwt101_getdata(IMU *hwt_data);
-void Myhwt101_resetz(void);
+void Myhwt101_resetz(IMU *imu);      
 
 
 #endif
