@@ -15,10 +15,10 @@ PID pidR = {
 };
 
 PID pidtrance = {
-    .kp = 1.0,
+    .kp = 0.8,
     .ki = 0.00,
-    .kd = 0.07,
-    .out_xianfu = 6.0
+    .kd = 1.0,
+    .out_xianfu = 10.0
 };
 void Mask_start(void)
 {
