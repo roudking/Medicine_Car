@@ -28,13 +28,13 @@ extern uint32_t uiRegDataLen;
   //101z轴置零
 void Myhwt101_resetz(void)                  
 {
-    //FF AA 69 88 B5
-    uint8_t unlock_chars[7] = {0xFF,0xAA,0x69,0x88,0xB5};
-    Uart2Send(unlock_chars,6);
+    // //FF AA 69 88 B5
+    // uint8_t unlock_chars[7] = {0xFF,0xAA,0x69,0x88,0xB5};
+    // Uart2Send(unlock_chars,6);
 
-	uint8_t reset_chars[7] = {0xFF,0xAA,0x76,0x00,0x00};
-    Uart2Send(reset_chars,6);
-	delay_ms(2000);
+	// uint8_t reset_chars[7] = {0xFF,0xAA,0x76,0x00,0x00};
+    // Uart2Send(reset_chars,6);
+	// delay_ms(2000);
 }
 
 void Myhwt101_init(void)
@@ -58,6 +58,24 @@ void Myhwt101_getdata(IMU *hwt_data)
 				hwt_data->fAcc[i] = sReg[AX+i] / 32768.0f * 16.0f;
 				hwt_data->fGyro[i] = sReg[GX+i] / 32768.0f * 2000.0f;
 				hwt_data->fAngle[i] = sReg[Roll+i] / 32768.0f * 180.0f;
+				
+             if(i == yaw_id) 
+             {
+                hwt_data->last_yaw = hwt_data->current_yaw;
+                hwt_data->current_yaw = hwt_data->fAngle[yaw_id];
+
+                  static int cnt = 0;
+             if(hwt_data->last_yaw < 180 && hwt_data->last_yaw > 160 && hwt_data->current_yaw > -180 && hwt_data->current_yaw < -160){
+                cnt ++;
+                } 
+            else if (hwt_data->current_yaw < 180 && hwt_data->current_yaw > 160 && hwt_data->last_yaw > -180 && hwt_data->last_yaw < -160) {
+                 cnt --;
+                }
+            hwt_data->real_yaw = hwt_data->current_yaw + cnt * 360.0;
+
+} 
+
+
 			}
 			if(s_cDataUpdate1 | ACC_UPDATE)
 			{

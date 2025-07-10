@@ -15,6 +15,10 @@ typedef struct
   	float fAcc[3];
    	float fGyro[3];
 	float fAngle[3];
+
+    float current_yaw;
+    float last_yaw;
+    float real_yaw;
 	
 }IMU;
 

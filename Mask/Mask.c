@@ -45,7 +45,7 @@ void Mask_Timer_INST_IRQHandler(void)
     //输出速度信息    
     // Debugger_printf("%d,%d\n",car.motor1.currentspeed,car.motor2.currentspeed);
     //输出角度信息
-    Debugger_printf("%.3f\n",car.imu.fAngle[yaw_id]);
+    Debugger_printf("%.3f,%.3f\n",car.imu.current_yaw,car.imu.real_yaw);
 
     Driver_setspeed(&(car.motor1),&(car.motor2));
 
