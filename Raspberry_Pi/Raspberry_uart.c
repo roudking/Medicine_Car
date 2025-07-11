@@ -8,10 +8,10 @@ char raspberry_cmd[1000];
 //树莓派串口中断初始化
 void Raspberry_uartinit(void)
 {
-   usart_rx_it_start(Debugger_UART_INST_INT_IRQN);
+   usart_rx_it_start(Raspberry_Pi_UART_INST_INT_IRQN);
 }
 
-void Debugger_UART_INST_IRQHandler(void)
+void Raspberry_Pi_UART_INST_IRQHandler(void)
 {
 			static int i = 0;
             uint8_t raspberry_uctemp = usart_receivebyte(Raspberry_UART);
