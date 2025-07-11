@@ -2,24 +2,7 @@
 
 //定义对象
 CAR car;
-//已整定pid
-PID pidL = {
-    .kp = 155.5,
-    .ki =36.0,
-    .kd = 0.0
-};
-PID pidR = {
-    .kp = 156.5,
-    .ki = 40.0,
-    .kd = 0.0
-};
 
-PID pidtrance = {
-    .kp = 0.83,
-    .ki = 0.00,
-    .kd = 1.00,
-    .out_xianfu = 15.0
-};
 void Mask_start(void)
 {
     //电机初始化
@@ -39,7 +22,7 @@ void Mask_start(void)
      Laser_off(&(car.yled));
      Debugger_printf("LED_InitCplt\n");
 
-  //树莓派串口初始化
+    //树莓派串口初始化
      Raspberry_init();
      Debugger_printf("Raspberry_InitCplt\n");
 
@@ -69,14 +52,17 @@ void Mask_Timer_INST_IRQHandler(void)
     Myhwt101_getdata(&(car.imu));
 
      Car_gettargetspeed(&car);
-     Car_settargetspeed(&car);
      Car_gettargetangle(&car);
      Car_getkeyaskstatus(&car);
+     Car_getcolor(&car);
 
      Car_settargetangle(&car);
-     Car_getcolor(&car);
      Car_setcolor(&car);
      Car_echokeyask(&car);
+
+     float delta = Car_trancepidcal(&car);
+     Driver_setmotor_targetspeed(&(car.motor1), car.raspberry.leftspeed - delta);
+     Driver_setmotor_targetspeed(&(car.motor2), car.raspberry.rightspeed + delta);
 
 
     Driver_setspeed(&(car.motor1),&(car.motor2));

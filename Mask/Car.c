@@ -1,5 +1,24 @@
 #include "Car.h"
 
+//已整定pid
+PID pidL = {
+    .kp = 155.5,
+    .ki =36.0,
+    .kd = 0.0
+};
+PID pidR = {
+    .kp = 156.5,
+    .ki = 40.0,
+    .kd = 0.0
+};
+
+PID pidtrance = {
+    .kp = 0.83,
+    .ki = 0.00,
+    .kd = 1.00,
+    .out_xianfu = 15.0
+};
+
 void Car_settrancepid(CAR *car, PID trancepid)
 {
     car->trance_pid = trancepid;
@@ -15,12 +34,6 @@ void Car_gettargetspeed(CAR *car)
     //得到左右轮速度
      Raspberry_getleftspeed(&(car->raspberry));
      Raspberry_getrightspeed(&(car->raspberry));
-}
-
-void Car_settargetspeed(CAR *car)
-{
-      Driver_setmotor_targetspeed(&(car->motor1), car->raspberry.leftspeed);
-      Driver_setmotor_targetspeed(&(car->motor2), car->raspberry.rightspeed);
 }
 
 void Car_gettargetangle(CAR *car)
