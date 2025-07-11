@@ -8,14 +8,14 @@ void Raspberry_init(void)
    Raspberry_uartinit();
 }
 
-void Raspberry_leftspeeddataIN(int indata)
+void Raspberry_leftspeeddataIN(int leftspeed)
 {
-    raspberry_temp.leftspeed = indata;
+    raspberry_temp.leftspeed = leftspeed;
 }
 
-void Raspberry_rightspeeddataIN(int indata)
+void Raspberry_rightspeeddataIN(int rightspeed)
 {
-    raspberry_temp.rightspeed = indata;
+    raspberry_temp.rightspeed = rightspeed;
 }
 
 void Raspberry_getleftspeed(RASPBERRY *raspberry)
@@ -49,6 +49,16 @@ void Raspberry_getcolor(RASPBERRY *raspberry)
     raspberry->led_color = raspberry_temp.led_color;
 }
 
+void Raspberry_keystatusIN(int status)
+{
+    raspberry_temp.key_status = status;
+}
+
+void Raspberry_getkeystatus(RASPBERRY *raspberry)
+{
+    raspberry->key_status = raspberry_temp.key_status;
+    raspberry_temp.key_status = 0;
+}
 
 
 void Raspberry_stateIN(Raspberry_STATE state)

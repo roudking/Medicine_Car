@@ -69,6 +69,9 @@ void Mask_Timer_INST_IRQHandler(void)
      Car_getcolor(&car);
      Car_setcolor(&car);
 
+     Car_getkeystatus(&car);
+     Car_echokeystatus(&car);
+
      
      Car_gettargetspeed(&car);
      float delta = Car_trancepidcal(&car);

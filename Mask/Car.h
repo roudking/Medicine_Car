@@ -29,11 +29,14 @@ float Car_trancepidcal(CAR *car);
 
 //从树莓派中得到数据
 void Car_gettargetspeed(CAR *car);
-void Car_settargetspeed(CAR *car);
+
 void Car_gettargetangle(CAR *car);
 void Car_settargetangle(CAR *car);
+
 void Car_getcolor(CAR *car);
 void Car_setcolor(CAR *car);
 
+void Car_getkeystatus(CAR *car);
+void Car_echokeystatus(CAR *car);
 
 #endif
