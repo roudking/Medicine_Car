@@ -44,8 +44,12 @@ void Mask_start(void)
      Myhwt101_init(); 
      Myhwt101_resetz(&(car.imu));
 
+    //按键初始化
+     Key_create(&(car.key), key1_config);
+
     //设置trancePID
      Car_settrancepid(&car, pidtrance);
+
   
     //开启任务定时中断
      tim_it_start(Mask_Timer_INST,Mask_Timer_INST_INT_IRQN);

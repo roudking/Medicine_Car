@@ -6,6 +6,7 @@
 #include "my_HWT101.h"
 #include "Raspberry_Pi.h"
 #include "Laser.h"
+#include "Key.h"
 
 
 typedef struct 
@@ -17,8 +18,8 @@ typedef struct
     LASER rled;
     LASER gled;
     LASER yled;
-
     IMU imu;
+    MYKEY key;
 
     PID trance_pid;
 }CAR;
