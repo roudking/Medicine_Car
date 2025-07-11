@@ -84,7 +84,7 @@ void Car_echokeystatus(CAR *car)
 {
      if(car->raspberry.key_status == 1)
      {
-        if(car->key.pin_value == 1)
+        if(car->key.pin_value == 0)
         {
             Raspberry_printf("{\"cmd\":\"is_drug_loaded\",\"result\":true}\n");
         }
