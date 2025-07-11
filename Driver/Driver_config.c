@@ -25,7 +25,7 @@ DRIVER_CONFIG leftdriver = {
 	
 	.Encoder_polarity = 0,
 
-	.Pwm_polarity = 0
+	.Pwm_polarity = 1
 
 };
 
@@ -50,7 +50,7 @@ DRIVER_CONFIG rightdriver = {
 	.Channel[0] = GPIO_Driver_Right_C0_IDX,
 	.Channel[1] = GPIO_Driver_Right_C1_IDX,
 
-	.Encoder_polarity = 1,
+	.Encoder_polarity = 0,
 
-	.Pwm_polarity = 1
+	.Pwm_polarity = 0
 };

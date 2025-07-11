@@ -160,7 +160,7 @@ void Mask_Timer_INST_IRQHandler(void)
     Debugger_printf("%d,%d\n",car.motor1.currentspeed,car.motor2.currentspeed);
     // Debugger_printf("%.3f,%.3f,%.3f\n",car.imu.current_yaw,car.imu.real_yaw,car.imu.zero_yaw);
 
-    // Driver_setspeed(&(car.motor1),&(car.motor2));
+    Driver_setspeed(&(car.motor1),&(car.motor2));
 
 }
 
