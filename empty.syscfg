@@ -176,7 +176,8 @@ TIMER1.peripheral.$assign = "TIMG8";
 
 UART1.$name                            = "Debugger_UART";
 UART1.enabledInterrupts                = ["RX"];
-UART1.targetBaudRate                   = 500000;
+UART1.targetBaudRate                   = 115200;
+UART1.interruptPriority                = "1";
 UART1.peripheral.$assign               = "UART0";
 UART1.peripheral.rxPin.$assign         = "PA11";
 UART1.peripheral.txPin.$assign         = "PA10";
@@ -192,7 +193,7 @@ UART1.rxPinConfig.$name                = "ti_driverlib_gpio_GPIOPinGeneric6";
 
 UART2.$name                            = "HWT_UART";
 UART2.enabledInterrupts                = ["RX"];
-UART2.interruptPriority                = "1";
+UART2.interruptPriority                = "0";
 UART2.peripheral.$assign               = "UART3";
 UART2.peripheral.rxPin.$assign         = "PB13";
 UART2.peripheral.txPin.$assign         = "PB12";
@@ -212,15 +213,15 @@ UART3.enabledInterrupts                = ["RX"];
 UART3.peripheral.$assign               = "UART1";
 UART3.peripheral.rxPin.$assign         = "PA18";
 UART3.peripheral.txPin.$assign         = "PB4";
-UART3.txPinConfig.$name                = "ti_driverlib_gpio_GPIOPinGeneric9";
 UART3.txPinConfig.direction            = scripting.forceWrite("OUTPUT");
 UART3.txPinConfig.hideOutputInversion  = scripting.forceWrite(false);
 UART3.txPinConfig.onlyInternalResistor = scripting.forceWrite(false);
 UART3.txPinConfig.passedPeripheralType = scripting.forceWrite("Digital");
-UART3.rxPinConfig.$name                = "ti_driverlib_gpio_GPIOPinGeneric10";
+UART3.txPinConfig.$name                = "ti_driverlib_gpio_GPIOPinGeneric9";
 UART3.rxPinConfig.hideOutputInversion  = scripting.forceWrite(false);
 UART3.rxPinConfig.onlyInternalResistor = scripting.forceWrite(false);
 UART3.rxPinConfig.passedPeripheralType = scripting.forceWrite("Digital");
+UART3.rxPinConfig.$name                = "ti_driverlib_gpio_GPIOPinGeneric10";
 
 /**
  * Pinmux solution for unlocked pins/peripherals. This ensures that minor changes to the automatic solver in a future

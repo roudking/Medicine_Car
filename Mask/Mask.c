@@ -28,6 +28,8 @@ void Mask_start(void)
      Driver_init(&(car.motor1));
      Driver_init(&(car.motor2));
 
+     Debugger_printf("Driver_InitCplt\n");
+
     //LED初始化
      Laser_create(&(car.rled), rled_config);
      Laser_create(&(car.gled), gled_config);
@@ -37,19 +39,27 @@ void Mask_start(void)
      Laser_off(&(car.gled));
      Laser_off(&(car.yled));
 
-    //树莓派串口初始化
+     Debugger_printf("LED_InitCplt\n");
+
+  //树莓派串口初始化
      Raspberry_init();
+    Debugger_printf("Raspberry_InitCplt\n");
 
     //陀螺仪初始化
      Myhwt101_init(); 
-     Myhwt101_resetz(&(car.imu));
+    //  Myhwt101_resetz(&(car.imu));
+
+     Debugger_printf("IMU_InitCplt\n");
+
+
 
     //设置trancePID
      Car_settrancepid(&car, pidtrance);
-  
+    Debugger_printf("TrancePID_InitCplt\n");
     //开启任务定时中断
      tim_it_start(Mask_Timer_INST,Mask_Timer_INST_INT_IRQN);
-	
+    Debugger_printf("Mask_Timer_INST_IRQHandler\n");
+
 }
 
 void Mask_Timer_INST_IRQHandler(void)
