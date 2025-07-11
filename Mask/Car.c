@@ -10,6 +10,16 @@ float Car_trancepidcal(CAR *car)
     return positionPid_Cal(car->imu.zero_yaw, car->imu.real_yaw, &(car->trance_pid));
 }
 
+void Car_setturnpid(CAR *car, PID turnpid)
+{
+    car->turn_pid = turnpid;
+}
+
+float Car_turnpidcal(CAR *car)
+{
+    return positionPid_Cal(car->imu.zero_yaw, car->imu.real_yaw, &(car->turn_pid));
+}
+
 void Car_gettargetspeed(CAR *car)
 {
     //得到左右轮速度
@@ -26,6 +36,10 @@ void Car_gettargetangle(CAR *car)
 void Car_settargetangle(CAR *car)
 {
      car->imu.zero_yaw += car->raspberry.angle;
+    if(car->raspberry.angle != 0) 
+    {
+        car->state.turn_state = 1;
+    }
 }
 
 void Car_getcolor(CAR *car)

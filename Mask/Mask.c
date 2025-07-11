@@ -20,6 +20,14 @@ PID pidtrance = {
     .kd = 1.00,
     .out_xianfu = 15.0
 };
+
+PID pidturn = {
+    .kp = 0.83,
+    .ki = 0.00,
+    .kd = 1.00,
+    .out_xianfu = 15.0
+};
+
 void Mask_start(void)
 {
     //电机初始化
@@ -50,6 +58,9 @@ void Mask_start(void)
     //设置trancePID
      Car_settrancepid(&car, pidtrance);
 
+     //设置turnPID
+     Car_setturnpid(&car, pidturn);
+
   
     //开启任务定时中断
      tim_it_start(Mask_Timer_INST,Mask_Timer_INST_INT_IRQN);
@@ -63,17 +74,32 @@ void Mask_Timer_INST_IRQHandler(void)
 
     Myhwt101_getdata(&(car.imu));
 
-     Car_gettargetangle(&car);
-     Car_settargetangle(&car);
-
+    //获取指示灯信息
      Car_getcolor(&car);
      Car_setcolor(&car);
 
+    //获得药物放置情况
      Car_getkeystatus(&car);
      Car_echokeystatus(&car);
 
+    //获得目标角度
+     Car_gettargetangle(&car);
+     Car_settargetangle(&car);
+
+    //获取目标速度
      Car_gettargetspeed(&car);
-     float delta = Car_trancepidcal(&car);
+      
+     float delta;
+     if(car.state.turn_state == 1){
+       delta = Car_turnpidcal(&car);
+     //判定转弯完成
+       if(fabs(car.imu.real_yaw - car.imu.zero_yaw) < 2.0){  
+          car.state.turn_state = 0;
+       }
+     }
+     else if(car.state.turn_state == 0){
+       delta = Car_trancepidcal(&car);
+     }
 
      Driver_setmotor_targetspeed(&(car.motor1), car.raspberry.leftspeed - delta);
      Driver_setmotor_targetspeed(&(car.motor2), car.raspberry.rightspeed + delta);
