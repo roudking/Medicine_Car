@@ -36,7 +36,7 @@ void Debugger_UART_INST_IRQHandler(void)
   				if(strcmp(raspberry_cmd,"ping") == 0)
 				 {
 					// 发送响应
-					Raspberry_printf("{\"cmd\":\"ping\",\"raspult\":\"pong\"}\n");
+					Raspberry_printf("{\"cmd\":\"ping\",\"result\":\"pong\"}\n");
 				}
 				else if(strcmp(raspberry_cmd,"speed") == 0)
 				{

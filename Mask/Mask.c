@@ -59,23 +59,32 @@ void Mask_Timer_INST_IRQHandler(void)
 
     Myhwt101_getdata(&(car.imu));
 
-    float delta = Car_trancepidcal(&car);
-    float base_speed = 25.0;
-    Driver_setmotor_targetspeed(&(car.motor1), base_speed - delta);
-    Driver_setmotor_targetspeed(&(car.motor2), base_speed + delta);
+     Car_gettargetspeed(&car);
+     Car_settargetspeed(&car);
+     Car_gettargetangle(&car);
+     Car_settargetangle(&car);
+     Car_getcolor(&car);
+     Car_setcolor(&car);
 
-    //输出速度信息    
-    Debugger_printf("%d,%d\n",car.motor1.currentspeed,car.motor2.currentspeed);
-    //输出角度信息
-    // Debugger_printf("%.3f,%.3f,%.3f\n",car.imu.current_yaw,car.imu.real_yaw,car.imu.zero_yaw);
-    // Debugger_printf("%.3f,%.3f,%.3f,%.3f\n",car.imu.real_yaw,car.imu.zero_yaw,car.imu.current_yaw,delta);
 
 
     Driver_setspeed(&(car.motor1),&(car.motor2));
 
 }
 
+//调试
+    //输出速度信息    
+    // Debugger_printf("%d,%d\n",car.motor1.currentspeed,car.motor2.currentspeed);
+    //输出角度信息
+    // Debugger_printf("%.3f,%.3f,%.3f\n",car.imu.current_yaw,car.imu.real_yaw,car.imu.zero_yaw);
+    // Debugger_printf("%.3f,%.3f,%.3f,%.3f\n",car.imu.real_yaw,car.imu.zero_yaw,car.imu.current_yaw,delta);
 
+
+//循迹角度环TEST
+    // float delta = Car_trancepidcal(&car);
+    // float base_speed = 25.0;
+    // Driver_setmotor_targetspeed(&(car.motor1), base_speed - delta);
+    // Driver_setmotor_targetspeed(&(car.motor2), base_speed + delta);
 
 //TEST代码
 // 	int time = 1500;
