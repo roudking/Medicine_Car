@@ -49,7 +49,16 @@ void Raspberry_getcolor(RASPBERRY *raspberry)
     raspberry->led_color = raspberry_temp.led_color;
 }
 
+void Raspberry_askstatusIN(int askstatus)
+{
+     raspberry_temp.keyask_status = askstatus;
+}
 
+void Raspberry_getaskstatus(RASPBERRY *raspberry)
+{
+    raspberry->keyask_status = raspberry_temp.keyask_status;
+    raspberry_temp.keyask_status = 0;
+}
 
 void Raspberry_stateIN(Raspberry_STATE state)
 {

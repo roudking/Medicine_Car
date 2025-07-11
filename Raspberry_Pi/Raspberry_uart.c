@@ -66,6 +66,10 @@ void Debugger_UART_INST_IRQHandler(void)
                     char color = color_json->valuestring[0];  //潜在风险
                     Raspberr_colorIN(color);
                  }
+                 else if(strcmp(raspberry_cmd,"is_drug_loaded") == 0)
+                 {
+                     Raspberry_askstatusIN(1);
+                 }
 
 				memset(raspberry_cmd_buffer,'\0',sizeof(raspberry_cmd_buffer));
 				memset(raspberry_cmd,'\0',sizeof(raspberry_cmd));

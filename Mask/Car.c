@@ -64,3 +64,24 @@ void Car_setcolor(CAR *car)
        Laser_off(&(car->yled));
      }
 }
+
+void Car_getkeyaskstatus(CAR *car)
+{
+    Raspberry_getaskstatus(&(car->raspberry));
+}
+
+void Car_echokeyask(CAR *car)
+{
+    if(car->raspberry.keyask_status == 1)
+    {
+        Key_read(&(car->key));
+        if(car->key.pin_value == 1)
+        {
+           Raspberry_printf("{\"cmd\":\"is_drug_loaded\",\"result\":true}\n");
+        }
+        else {
+           Raspberry_printf("{\"cmd\":\"is_drug_loaded\",\"result\":false}\n");
+        }
+   
+    }
+}

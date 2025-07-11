@@ -13,6 +13,7 @@ const GPIO   = scripting.addModule("/ti/driverlib/GPIO", {}, false);
 const GPIO1  = GPIO.addInstance();
 const GPIO2  = GPIO.addInstance();
 const GPIO3  = GPIO.addInstance();
+const GPIO4  = GPIO.addInstance();
 const PWM    = scripting.addModule("/ti/driverlib/PWM", {}, false);
 const PWM1   = PWM.addInstance();
 const PWM2   = PWM.addInstance();
@@ -109,6 +110,11 @@ GPIO3.associatedPins[1].$name       = "G_Pin";
 GPIO3.associatedPins[1].pin.$assign = "PB18";
 GPIO3.associatedPins[2].$name       = "Y_Pin";
 GPIO3.associatedPins[2].pin.$assign = "PA22";
+
+GPIO4.$name                              = "Key";
+GPIO4.associatedPins[0].$name            = "Key_Pin";
+GPIO4.associatedPins[0].direction        = "INPUT";
+GPIO4.associatedPins[0].internalResistor = "PULL_UP";
 
 PWM1.$name                              = "Driver_Left";
 PWM1.timerCount                         = 7200;
@@ -228,6 +234,7 @@ UART3.rxPinConfig.$name                = "ti_driverlib_gpio_GPIOPinGeneric10";
  * version of the tool will not impact the pinmux you originally saw.  These lines can be completely deleted in order to
  * re-solve from scratch.
  */
-Board.peripheral.$suggestSolution          = "DEBUGSS";
-Board.peripheral.swclkPin.$suggestSolution = "PA20";
-Board.peripheral.swdioPin.$suggestSolution = "PA19";
+Board.peripheral.$suggestSolution            = "DEBUGSS";
+Board.peripheral.swclkPin.$suggestSolution   = "PA20";
+Board.peripheral.swdioPin.$suggestSolution   = "PA19";
+GPIO4.associatedPins[0].pin.$suggestSolution = "PB14";

@@ -16,6 +16,7 @@ typedef struct
     volatile int rightspeed;
 	volatile char led_color;
     volatile float angle;
+    volatile int keyask_status;
 	volatile Raspberry_STATE state;
 }RASPBERRY_TEMP;
 
@@ -25,6 +26,7 @@ typedef struct
     volatile int rightspeed;
 	volatile char led_color;
     volatile float angle;
+    volatile int keyask_status;
 	volatile Raspberry_STATE state;
 }RASPBERRY;
 
@@ -38,6 +40,9 @@ void Raspberry_angledataIN(float angle);
 void Raspberry_getangle(RASPBERRY *raspberry);
 void Raspberr_colorIN(char color);
 void Raspberry_getcolor(RASPBERRY *raspberry);
+void Raspberry_askstatusIN(int askstatus);
+void Raspberry_getaskstatus(RASPBERRY *raspberry);
+
 void Raspberry_stateIN(Raspberry_STATE state);
 void Raspberry_getstate(RASPBERRY *raspberry);
 
