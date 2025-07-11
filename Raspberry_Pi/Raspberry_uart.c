@@ -28,7 +28,7 @@ void Debugger_UART_INST_IRQHandler(void)
 		   cJSON *json = cJSON_Parse((char *)raspberry_cmd_buffer);
 		
 		  if (json) {
-						cJSON *json_command = cJSON_GetObjectItem(json, "cmd");
+				 cJSON *json_command = cJSON_GetObjectItem(json, "cmd");
 		
 			   if (json_command && json_command->type == cJSON_String) 
 	  			{
@@ -38,24 +38,34 @@ void Debugger_UART_INST_IRQHandler(void)
 					// 发送响应
 					Raspberry_printf("{\"cmd\":\"ping\",\"raspult\":\"pong\"}\n");
 				}
-				else if(strcmp(raspberry_cmd,"spin") == 0)
+				else if(strcmp(raspberry_cmd,"speed") == 0)
 				{
-					// cJSON *speed_json = cJSON_GetObjectItem(json, "speed");
+					cJSON *leftspeed_json = cJSON_GetObjectItem(json, "l");
+					cJSON *rightspeed_json = cJSON_GetObjectItem(json, "r");
 							
-			        // // 从 speed 中提取数字字符串
-			    	// int speed = speed_json->valueint;
-					// Raspberry_speeddataIN(speed);
-					// Raspberry_printf("{\"cmd\":\"spin\",\"raspult\":\"ok\"}\n");
+			       
+			    	int left_speed = leftspeed_json->valueint;
+                    int right_speed = rightspeed_json->valueint;
+
+                    
+					Raspberry_leftspeeddataIN(left_speed);
+                    Raspberry_rightspeeddataIN(right_speed);
+
 				}
 				else if(strcmp(raspberry_cmd,"angle") == 0)
 				{
-				//   cJSON *angle_json = cJSON_GetObjectItem(json, "angle");
-				//   // 从 angle 中提取数字字符串
-				//   float angle = angle_json->valuedouble;
-				//   Raspberry_angledataIN(angle);
-				//   Raspberry_printf("{\"cmd\":\"angle\",\"raspult\":\"ok\"}\n");
+				  cJSON *angle_json = cJSON_GetObjectItem(json, "angle");
+				  // 从 angle 中提取数字字符串
+				  float angle = angle_json->valuedouble;
+				  Raspberry_angledataIN(angle);
 
 				 }
+                 else if(strcmp(raspberry_cmd,"color") == 0)
+                 {
+                    cJSON *color_json = cJSON_GetObjectItem(json, "color");
+                    char color = color_json->valuestring[0];  //潜在风险
+                    Raspberr_colorIN(color);
+                 }
 
 				memset(raspberry_cmd_buffer,'\0',sizeof(raspberry_cmd_buffer));
 				memset(raspberry_cmd,'\0',sizeof(raspberry_cmd));

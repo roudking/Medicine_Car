@@ -28,10 +28,17 @@ void Mask_start(void)
      Driver_init(&(car.motor1));
      Driver_init(&(car.motor2));
 
-    //舵机初始化
+    //LED初始化
+     Laser_create(&(car.rled), rled_config);
+     Laser_create(&(car.gled), gled_config);
+     Laser_create(&(car.yled), yled_config);
+    //上电关灯
+     Laser_off(&(car.rled));
+     Laser_off(&(car.gled));
+     Laser_off(&(car.yled));
 
     //树莓派串口初始化
-     Raspberry_uartinit();
+     Raspberry_init();
 
     //陀螺仪初始化
      Myhwt101_init(); 

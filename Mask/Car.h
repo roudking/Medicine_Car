@@ -4,7 +4,8 @@
 #include "Driver.h"
 #include "Servo.h"
 #include "my_HWT101.h"
-#include "Raspberry_uart.h"
+#include "Raspberry_Pi.h"
+#include "Laser.h"
 
 
 typedef struct 
@@ -12,6 +13,11 @@ typedef struct
     MOTOR motor1;
     MOTOR motor2;
     SERVO servo;
+    RASPBERRY raspberry;
+    LASER rled;
+    LASER gled;
+    LASER yled;
+
     IMU imu;
 
     PID trance_pid;
