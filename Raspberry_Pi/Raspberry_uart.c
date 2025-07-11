@@ -14,7 +14,7 @@ void Raspberry_uartinit(void)
 void Debugger_UART_INST_IRQHandler(void)
 {
 			static int i = 0;
-            uint8_t raspberry_uctemp = usart_receivebyte(Debugger_UART_INST);
+            uint8_t raspberry_uctemp = usart_receivebyte(Raspberry_UART);
 
 	  if (raspberry_uctemp != '\n' && i < BUFFER_SIZE - 1) {
             raspberry_cmd_buffer[i++] = raspberry_uctemp;
@@ -36,7 +36,7 @@ void Debugger_UART_INST_IRQHandler(void)
   				if(strcmp(raspberry_cmd,"ping") == 0)
 				 {
 					// 发送响应
-					Raspberry_printf("{\"cmd\":\"ping\",\"result\":\"pong\"}\n");
+					Raspberry_printf("{\"cmd\":\"ping\",\"result\":true}\n");
 				}
 				else if(strcmp(raspberry_cmd,"speed") == 0)
 				{

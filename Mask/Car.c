@@ -17,11 +17,6 @@ void Car_gettargetspeed(CAR *car)
      Raspberry_getrightspeed(&(car->raspberry));
 }
 
-void Car_settargetspeed(CAR *car)
-{
-      Driver_setmotor_targetspeed(&(car->motor1), car->raspberry.leftspeed);
-      Driver_setmotor_targetspeed(&(car->motor2), car->raspberry.rightspeed);
-}
 
 void Car_gettargetangle(CAR *car)
 {

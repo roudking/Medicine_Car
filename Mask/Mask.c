@@ -59,14 +59,22 @@ void Mask_Timer_INST_IRQHandler(void)
 
     Myhwt101_getdata(&(car.imu));
 
-     Car_gettargetspeed(&car);
-     Car_settargetspeed(&car);
      Car_gettargetangle(&car);
      Car_settargetangle(&car);
+
      Car_getcolor(&car);
      Car_setcolor(&car);
 
+     
+     Car_gettargetspeed(&car);
+     float delta = Car_trancepidcal(&car);
 
+     Driver_setmotor_targetspeed(&(car.motor1), car.raspberry.leftspeed - delta);
+     Driver_setmotor_targetspeed(&(car.motor2), car.raspberry.rightspeed + delta);
+
+
+
+    // Debugger_printf("%.3f,%.3f,%.3f\n",car.imu.current_yaw,car.imu.real_yaw,car.imu.zero_yaw);
 
     Driver_setspeed(&(car.motor1),&(car.motor2));
 
