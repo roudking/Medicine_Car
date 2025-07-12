@@ -40,6 +40,9 @@ float Car_trancepidcal(CAR *car);
 void Car_setturnpid(CAR *car, PID turnpid);
 float Car_turnpidcal(CAR *car);
 
+//获得左右轮差速
+float Car_getdeltaspeed(CAR *car);
+
 //获取目标速度
 void Car_gettargetspeed(CAR *car);
 
@@ -54,5 +57,9 @@ void Car_setcolor(CAR *car);
 //获取目标按键状态
 void Car_getkeystatus(CAR *car);
 void Car_echokeystatus(CAR *car);
+
+//获取陀螺仪复位状态
+void Car_getresetstatus(CAR *car);
+void  Car_resetimu(CAR *car);
 
 #endif

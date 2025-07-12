@@ -51,23 +51,22 @@ void Raspberry_getcolor(RASPBERRY *raspberry)
 
 void Raspberry_keystatusIN(int status)
 {
-    raspberry_temp.key_status = status;
+    raspberry_temp.status.key_status = status;
 }
 
 void Raspberry_getkeystatus(RASPBERRY *raspberry)
 {
-    raspberry->key_status = raspberry_temp.key_status;
-    raspberry_temp.key_status = 0;
+    raspberry->status.key_status = raspberry_temp.status.key_status;
+    raspberry_temp.status.key_status = 0;
 }
 
-
-void Raspberry_stateIN(Raspberry_STATE state)
+void Raspberry_resetstatusIN(int status)
 {
-   raspberry_temp.state = state;
-}   
-
-void Raspberry_getstate(RASPBERRY *raspberry)
-{
-	raspberry->state = raspberry_temp.state;
+     raspberry_temp.status.reset_status = status;
 }
 
+void Raspberry_getresetstatus(RASPBERRY *raspberry)
+{
+    raspberry->status.reset_status = raspberry_temp.status.reset_status;
+    raspberry_temp.status.reset_status = 0;
+}

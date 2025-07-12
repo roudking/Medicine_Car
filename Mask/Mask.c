@@ -61,7 +61,6 @@ void Mask_start(void)
      //设置turnPID
      Car_setturnpid(&car, pidturn);
 
-  
     //开启任务定时中断
      tim_it_start(Mask_Timer_INST,Mask_Timer_INST_INT_IRQN);
 	
@@ -73,6 +72,11 @@ void Mask_Timer_INST_IRQHandler(void)
 	Driver_getmotor_currentspeed(&(car.motor2));
 
     Myhwt101_getdata(&(car.imu));
+
+    //获取陀螺仪复位情况
+     Car_getresetstatus(&car);
+     Car_resetimu(&car);
+    
 
     //获取指示灯信息
      Car_getcolor(&car);
@@ -88,18 +92,9 @@ void Mask_Timer_INST_IRQHandler(void)
 
     //获取目标速度
      Car_gettargetspeed(&car);
-      
-     float delta;
-     if(car.state.turn_state == 1){
-       delta = Car_turnpidcal(&car);
-     //判定转弯完成
-       if(fabs(car.imu.real_yaw - car.imu.zero_yaw) < 2.0){  
-          car.state.turn_state = 0;
-       }
-     }
-     else if(car.state.turn_state == 0){
-       delta = Car_trancepidcal(&car);
-     }
+
+    //获得左右轮差速
+     float delta = Car_getdeltaspeed(&car);
 
      Driver_setmotor_targetspeed(&(car.motor1), car.raspberry.leftspeed - delta);
      Driver_setmotor_targetspeed(&(car.motor2), car.raspberry.rightspeed + delta);

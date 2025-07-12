@@ -52,7 +52,7 @@ void Raspberry_Pi_UART_INST_IRQHandler(void)
                     Raspberry_rightspeeddataIN(right_speed);
 
 				}
-				else if(strcmp(raspberry_cmd,"angle") == 0)
+				else if(strcmp(raspberry_cmd,"turn") == 0)
 				{
 				  cJSON *angle_json = cJSON_GetObjectItem(json, "angle");
 				  // 从 angle 中提取数字字符串
@@ -69,6 +69,10 @@ void Raspberry_Pi_UART_INST_IRQHandler(void)
                  else if(strcmp(raspberry_cmd,"is_drug_loaded") == 0)
                  {
                      Raspberry_keystatusIN(1);
+                 }
+                 else if(strcmp(raspberry_cmd,"reset") == 0)
+                 {
+                     Raspberry_resetstatusIN(1);
                  }
 
 				memset(raspberry_cmd_buffer,'\0',sizeof(raspberry_cmd_buffer));
