@@ -26,7 +26,8 @@ float Car_getdeltaspeed(CAR *car)
       //判定转弯完成,进行状态转换
        if(fabs(car->imu.real_yaw - car->imu.zero_yaw) < 2.0){  
           car->state.turn_state = 0;
-         Raspberry_printf("{\"cmd\":\"turn\",\"result\":\"ok\"}\n");
+         //到位回复
+         //Raspberry_printf("{\"cmd\":\"turn\",\"result\":\"ok\"}\n");
        }
       return  Car_turnpidcal(car);
      }
