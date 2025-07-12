@@ -74,20 +74,20 @@ void Mask_Timer_INST_IRQHandler(void)
 
     Myhwt101_getdata(&(car.imu));
 
-    // //获取指示灯信息
-    //  Car_getcolor(&car);
-    //  Car_setcolor(&car);
+    //获取指示灯信息
+     Car_getcolor(&car);
+     Car_setcolor(&car);
 
-    // //获得药物放置情况
-    //  Car_getkeystatus(&car);
-    //  Car_echokeystatus(&car);
+    //获得药物放置情况
+     Car_getkeystatus(&car);
+     Car_echokeystatus(&car);
 
-    // //获得目标角度
-    //  Car_gettargetangle(&car);
-    //  Car_settargetangle(&car);
+    //获得目标角度
+     Car_gettargetangle(&car);
+     Car_settargetangle(&car);
 
-    // //获取目标速度
-    //  Car_gettargetspeed(&car);
+    //获取目标速度
+     Car_gettargetspeed(&car);
       
      float delta;
      if(car.state.turn_state == 1){
@@ -103,11 +103,6 @@ void Mask_Timer_INST_IRQHandler(void)
 
      Driver_setmotor_targetspeed(&(car.motor1), car.raspberry.leftspeed - delta);
      Driver_setmotor_targetspeed(&(car.motor2), car.raspberry.rightspeed + delta);
-
-
-
-    // Debugger_printf("%d,%d\n",car.motor1.currentspeed,car.motor2.currentspeed);
-    // Debugger_printf("%.3f,%.3f,%.3f\n",car.imu.current_yaw,car.imu.real_yaw,car.imu.zero_yaw);
 
     Driver_setspeed(&(car.motor1),&(car.motor2));
 
