@@ -44,8 +44,8 @@ void Raspberry_Pi_UART_INST_IRQHandler(void)
 					cJSON *rightspeed_json = cJSON_GetObjectItem(json, "r");
 							
 			       
-			    	int left_speed = leftspeed_json->valueint;
-                    int right_speed = rightspeed_json->valueint;
+			    	float left_speed = leftspeed_json->valuedouble;
+                    float right_speed = rightspeed_json->valuedouble;
 
                     
 					Raspberry_leftspeeddataIN(left_speed);

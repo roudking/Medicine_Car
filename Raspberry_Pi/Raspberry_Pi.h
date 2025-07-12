@@ -12,8 +12,8 @@ typedef struct{
 
 typedef struct
 {
-    volatile int leftspeed;
-    volatile int rightspeed;
+    volatile float leftspeed;
+    volatile float rightspeed;
 	volatile char led_color;
     volatile float angle;
 	volatile RASPBERRY_STATUS status;
@@ -21,8 +21,8 @@ typedef struct
 
 void Raspberry_init(void);
 
-void Raspberry_leftspeeddataIN(int leftspeed);
-void Raspberry_rightspeeddataIN(int rightspeed);
+void Raspberry_leftspeeddataIN(float leftspeed);
+void Raspberry_rightspeeddataIN(float rightspeed);
 void Raspberry_getleftspeed(RASPBERRY *raspberry);
 void Raspberry_getrightspeed(RASPBERRY *raspberry);
 

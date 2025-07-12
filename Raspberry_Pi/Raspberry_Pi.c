@@ -8,12 +8,12 @@ void Raspberry_init(void)
    Raspberry_uartinit();
 }
 
-void Raspberry_leftspeeddataIN(int leftspeed)
+void Raspberry_leftspeeddataIN(float leftspeed)
 {
     raspberry_temp.leftspeed = leftspeed;
 }
 
-void Raspberry_rightspeeddataIN(int rightspeed)
+void Raspberry_rightspeeddataIN(float rightspeed)
 {
     raspberry_temp.rightspeed = rightspeed;
 }
