@@ -1,7 +1,7 @@
 #include "Raspberry_Pi.h"
 
 //树莓派缓存区
-static RASPBERRY_TEMP raspberry_temp;
+static RASPBERRY raspberry_temp;
 
 void Raspberry_init(void)
 {

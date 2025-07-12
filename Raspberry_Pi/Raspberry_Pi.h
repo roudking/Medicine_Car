@@ -4,25 +4,11 @@
 #include "Raspberry_uart.h"
 #include "string.h"
 
-// typedef enum
-// {
-//      raspberry_wait_echo,
-// 	 raspberry_complite_echo
-// }Raspberry_STATE;
 
 typedef struct{
     int key_status;
     int reset_status;
 }RASPBERRY_STATUS;
-
-typedef struct
-{
-    volatile int leftspeed;
-    volatile int rightspeed;
-	volatile char led_color;
-    volatile float angle;
-	volatile RASPBERRY_STATUS status;
-}RASPBERRY_TEMP;
 
 typedef struct
 {
