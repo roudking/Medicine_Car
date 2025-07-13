@@ -17,17 +17,17 @@ PID pidR = {
 };
 
 PID pidtrance = {
-    .kp = 0.75,
-    .ki = 0.00,
-    .kd = 2.77,
-    .out_xianfu = 5.0
+    // .kp = 0.75,
+    // .ki = 0.00,
+    // .kd = 2.77,
+    .out_xianfu = 0.001
 };
 
 PID pidturn = {
-    .kp = 0.75,
-    .ki = 0.00,
-    .kd = 2.77,
-    .out_xianfu = 20.0
+    // .kp = 0.75,
+    // .ki = 0.00,
+    // .kd = 2.77,
+    .out_xianfu = 0.001
 };
 
 void Mask_start(void)
@@ -50,9 +50,9 @@ void Mask_start(void)
     //树莓派串口初始化
      Raspberry_init();
 
-    //陀螺仪初始化
-     Myhwt101_init(); 
-     Myhwt101_resetz(&(car.imu));
+    // //陀螺仪初始化
+    //  Myhwt101_init(); 
+    //  Myhwt101_resetz(&(car.imu));
 
     //按键初始化
      Key_create(&(car.key), key1_config);
@@ -73,11 +73,11 @@ void Mask_Timer_INST_IRQHandler(void)
 	Driver_getmotor_currentspeed(&(car.motor1));
 	Driver_getmotor_currentspeed(&(car.motor2));
 
-    Myhwt101_getdata(&(car.imu));
+    // Myhwt101_getdata(&(car.imu));
 
-    //获取陀螺仪复位情况
-     Car_getresetstatus(&car);
-     Car_resetimu(&car);
+    // //获取陀螺仪复位情况
+    //  Car_getresetstatus(&car);
+    //  Car_resetimu(&car);
     
 
     //获取指示灯信息
@@ -96,10 +96,10 @@ void Mask_Timer_INST_IRQHandler(void)
      Car_gettargetspeed(&car);
 
     //获得左右轮差速
-     float delta = Car_getdeltaspeed(&car);
+    //  float delta = Car_getdeltaspeed(&car);
 
-     Driver_setmotor_targetspeed(&(car.motor1), car.raspberry.leftspeed - delta);
-     Driver_setmotor_targetspeed(&(car.motor2), car.raspberry.rightspeed + delta);
+     Driver_setmotor_targetspeed(&(car.motor1), car.raspberry.leftspeed);
+     Driver_setmotor_targetspeed(&(car.motor2), car.raspberry.rightspeed);
 
     Driver_setspeed(&(car.motor1),&(car.motor2));
 
