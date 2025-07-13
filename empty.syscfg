@@ -25,6 +25,7 @@ const UART   = scripting.addModule("/ti/driverlib/UART", {}, false);
 const UART1  = UART.addInstance();
 const UART2  = UART.addInstance();
 const UART3  = UART.addInstance();
+const UART4  = UART.addInstance();
 
 /**
  * Write custom configuration values to the imported modules.
@@ -228,6 +229,22 @@ UART3.rxPinConfig.hideOutputInversion  = scripting.forceWrite(false);
 UART3.rxPinConfig.onlyInternalResistor = scripting.forceWrite(false);
 UART3.rxPinConfig.passedPeripheralType = scripting.forceWrite("Digital");
 UART3.rxPinConfig.$name                = "ti_driverlib_gpio_GPIOPinGeneric10";
+
+UART4.$name                            = "K230_UART";
+UART4.targetBaudRate                   = 115200;
+UART4.enabledInterrupts                = ["RX"];
+UART4.peripheral.$assign               = "UART2";
+UART4.peripheral.rxPin.$assign         = "PB16";
+UART4.peripheral.txPin.$assign         = "PB17";
+UART4.txPinConfig.$name                = "ti_driverlib_gpio_GPIOPinGeneric11";
+UART4.txPinConfig.direction            = scripting.forceWrite("OUTPUT");
+UART4.txPinConfig.hideOutputInversion  = scripting.forceWrite(false);
+UART4.txPinConfig.onlyInternalResistor = scripting.forceWrite(false);
+UART4.txPinConfig.passedPeripheralType = scripting.forceWrite("Digital");
+UART4.rxPinConfig.$name                = "ti_driverlib_gpio_GPIOPinGeneric12";
+UART4.rxPinConfig.hideOutputInversion  = scripting.forceWrite(false);
+UART4.rxPinConfig.onlyInternalResistor = scripting.forceWrite(false);
+UART4.rxPinConfig.passedPeripheralType = scripting.forceWrite("Digital");
 
 /**
  * Pinmux solution for unlocked pins/peripherals. This ensures that minor changes to the automatic solver in a future
