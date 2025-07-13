@@ -88,14 +88,14 @@ void Mask_Timer_INST_IRQHandler(void)
 
     Myhwt101_getdata(&(car.imu));
 
-    Car_getpostion(&car);
+    K230_getposdata(&(car.k230));
 
     //获得左右轮差速
      float delta = Car_getdeltaspeed(&car);
 
-
+     Mask_performmasks(&car);
+    
      
-
      Driver_setmotor_targetspeed(&(car.motor1), car.basespeed - delta);
      Driver_setmotor_targetspeed(&(car.motor2), car.basespeed + delta);
 

@@ -12,8 +12,27 @@
 typedef struct
 {
     int turn_state;
+}CAR_STATUS;
 
-}CAR_STATE;
+typedef enum
+{
+   wait_keyon,
+   wait_keyoff,
+   get_num,
+   goto_T,
+   go_over,
+   turnright,
+   turnleft,
+   turnback,
+   stop
+}MASK_ENUM;
+
+typedef struct
+{
+    MASK_ENUM mask_list[200];
+    int mask_num;
+}MASK;
+
 
 typedef struct 
 {
@@ -34,7 +53,9 @@ typedef struct
 
     float basespeed;
 
-    CAR_STATE state;
+    MASK mask;
+
+    CAR_STATUS status;
 }CAR;
 
 //设置巡线角度环PID
@@ -52,30 +73,8 @@ float Car_positionpidcal(CAR *car);
 //获得左右轮差速
 float Car_getdeltaspeed(CAR *car);
 
-//获得当前位置
-void Car_getpostion(CAR *car);
-
 //设置基础速度
 void Car_setbasespeed(CAR *car, float basespeed);
 
-
-//获取目标速度
-void Car_gettargetspeed(CAR *car);
-
-//获取目标角度
-void Car_gettargetangle(CAR *car);
-void Car_settargetangle(CAR *car);
-
-//获取目标指示灯颜色
-void Car_getcolor(CAR *car);
-void Car_setcolor(CAR *car);
-
-//获取目标按键状态
-void Car_getkeystatus(CAR *car);
-void Car_echokeystatus(CAR *car);
-
-//获取陀螺仪复位状态
-void Car_getresetstatus(CAR *car);
-void  Car_resetimu(CAR *car);
 
 #endif
