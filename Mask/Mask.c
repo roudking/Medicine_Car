@@ -50,9 +50,9 @@ void Mask_start(void)
     //树莓派串口初始化
      Raspberry_init();
 
-    // //陀螺仪初始化
-    //  Myhwt101_init(); 
-    //  Myhwt101_resetz(&(car.imu));
+    //陀螺仪初始化
+     Myhwt101_init(); 
+     Myhwt101_resetz(&(car.imu));
 
     //按键初始化
      Key_create(&(car.key), key1_config);
@@ -73,11 +73,13 @@ void Mask_Timer_INST_IRQHandler(void)
 	Driver_getmotor_currentspeed(&(car.motor1));
 	Driver_getmotor_currentspeed(&(car.motor2));
 
-    // Myhwt101_getdata(&(car.imu));
+    Myhwt101_getdata(&(car.imu));
 
-    // //获取陀螺仪复位情况
+     //获取陀螺仪复位情况
     //  Car_getresetstatus(&car);
     //  Car_resetimu(&car);
+
+    Raspberry_printf("{\"cmd\":\"angle\",\"yaw\":%.3f}\n",car.imu.real_yaw);
     
 
     //获取指示灯信息
