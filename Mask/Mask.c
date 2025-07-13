@@ -20,14 +20,21 @@ PID pidtrance = {
     .kp = 0.75,
     .ki = 0.00,
     .kd = 2.77,
-    .out_xianfu = 5.0
+    .out_xianfu = 20.0
 };
 
 PID pidturn = {
     .kp = 0.75,
     .ki = 0.00,
     .kd = 2.77,
-    .out_xianfu = 20.0
+    .out_xianfu = 30.0
+};
+
+PID pidposition = {
+    // .kp = 0.75,
+    // .ki = 0.00,
+    // .kd = 2.77,
+    // .out_xianfu = 30.0
 };
 
 void Mask_start(void)
@@ -50,6 +57,9 @@ void Mask_start(void)
     //树莓派串口初始化
      Raspberry_init();
 
+    //K230串口初始化
+     K230_init();
+
     //陀螺仪初始化
      Myhwt101_init(); 
      Myhwt101_resetz(&(car.imu));
@@ -63,6 +73,9 @@ void Mask_start(void)
      //设置turnPID
      Car_setturnpid(&car, pidturn);
 
+     //设置positionPID
+     Car_setpositionpid(&car, pidposition);
+
     //开启任务定时中断
      tim_it_start(Mask_Timer_INST,Mask_Timer_INST_INT_IRQN);
 	
@@ -75,31 +88,16 @@ void Mask_Timer_INST_IRQHandler(void)
 
     Myhwt101_getdata(&(car.imu));
 
-    //获取陀螺仪复位情况
-     Car_getresetstatus(&car);
-     Car_resetimu(&car);
-    
-
-    //获取指示灯信息
-     Car_getcolor(&car);
-     Car_setcolor(&car);
-
-    //获得药物放置情况
-     Car_getkeystatus(&car);
-     Car_echokeystatus(&car);
-
-    //获得目标角度
-     Car_gettargetangle(&car);
-     Car_settargetangle(&car);
-
-    //获取目标速度
-     Car_gettargetspeed(&car);
+    Car_getpostion(&car);
 
     //获得左右轮差速
      float delta = Car_getdeltaspeed(&car);
 
-     Driver_setmotor_targetspeed(&(car.motor1), car.raspberry.leftspeed - delta);
-     Driver_setmotor_targetspeed(&(car.motor2), car.raspberry.rightspeed + delta);
+
+     
+
+     Driver_setmotor_targetspeed(&(car.motor1), car.basespeed - delta);
+     Driver_setmotor_targetspeed(&(car.motor2), car.basespeed + delta);
 
     Driver_setspeed(&(car.motor1),&(car.motor2));
 

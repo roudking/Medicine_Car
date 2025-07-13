@@ -20,6 +20,16 @@ float Car_turnpidcal(CAR *car)
     return positionPid_Cal(car->imu.zero_yaw, car->imu.real_yaw, &(car->turn_pid));
 }
 
+void Car_setpositionpid(CAR *car, PID positionpid)
+{
+    car->position_pid = positionpid;
+}
+
+float Car_positionpidcal(CAR *car)
+{
+    return positionPid_Cal(0.0, car->k230.pos, &(car->position_pid));
+}
+
 float Car_getdeltaspeed(CAR *car)
 {
      if(car->state.turn_state == 1){
@@ -33,10 +43,22 @@ float Car_getdeltaspeed(CAR *car)
      }
 
      else if(car->state.turn_state == 0){
-       return Car_trancepidcal(car);
+       return Car_trancepidcal(car) + Car_positionpidcal(car);
      }
 
 }
+
+void Car_getpostion(CAR *car)
+{
+    K230_getposdata(&(car->k230));
+}
+
+void Car_setbasespeed(CAR *car, float basespeed)
+{
+    car->basespeed = basespeed;
+}
+
+
 
 void Car_gettargetspeed(CAR *car)
 {
@@ -126,3 +148,4 @@ void  Car_resetimu(CAR *car)
       Raspberry_printf("{\"cmd\":\"reset\",\"result\":\"ok\"}\n");
     }
 }
+

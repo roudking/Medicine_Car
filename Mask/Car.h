@@ -7,6 +7,7 @@
 #include "Raspberry_Pi.h"
 #include "Laser.h"
 #include "Key.h"
+#include "K230.h"
 
 typedef struct
 {
@@ -20,6 +21,7 @@ typedef struct
     MOTOR motor2;
     SERVO servo;
     RASPBERRY raspberry;
+    K230  k230;
     LASER rled;
     LASER gled;
     LASER yled;
@@ -28,6 +30,9 @@ typedef struct
 
     PID trance_pid;
     PID turn_pid;
+    PID position_pid;
+
+    float basespeed;
 
     CAR_STATE state;
 }CAR;
@@ -40,8 +45,19 @@ float Car_trancepidcal(CAR *car);
 void Car_setturnpid(CAR *car, PID turnpid);
 float Car_turnpidcal(CAR *car);
 
+//设置位置环PID
+void Car_setpositionpid(CAR *car, PID positionpid);
+float Car_positionpidcal(CAR *car);
+
 //获得左右轮差速
 float Car_getdeltaspeed(CAR *car);
+
+//获得当前位置
+void Car_getpostion(CAR *car);
+
+//设置基础速度
+void Car_setbasespeed(CAR *car, float basespeed);
+
 
 //获取目标速度
 void Car_gettargetspeed(CAR *car);
