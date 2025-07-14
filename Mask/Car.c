@@ -52,10 +52,11 @@ void Car_setbasespeed(CAR *car, float basespeed)
     car->basespeed = basespeed;
 }
 
-
-
-
-
+//获取当前距离
+void Car_getdistance(CAR *car)
+{
+   car->distance += (car->motor1.currentspeed + car->motor2.currentspeed) / 2.0;
+}   
 
 // typedef enum
 // {
@@ -63,6 +64,7 @@ void Car_setbasespeed(CAR *car, float basespeed)
 //    wait_keyoff,
 //    get_num,
 //    goto_T,
+//    goto_N,
 //    go_over,
 //    turnright,
 //    turnleft,
@@ -176,14 +178,6 @@ int Car_turnbackfuc(CAR *car)
    }
 }
 
-//goto_T
-const float basespeed = 25.0; //基础速度
-int Car_gotoTfuc(CAR *car)
-{
-    Car_setbasespeed(car, basespeed);
-    return 1;
-}
-
 //get_num
 int Car_getnumfuc(CAR *car)
 {
@@ -206,6 +200,63 @@ int Car_getnumfuc(CAR *car)
         }
     }
 }
+
+//go_over
+const float go_over_distance = 500; 
+int Car_gooverfuc(CAR *car)
+{
+    static int pc_cnt = 0;
+    if(pc_cnt == 0)
+    {
+     car->distance = 0; //重置距离
+        return 0; //开始转弯
+    }
+    else {
+        if(car->distance < go_over_distance) 
+        {
+            return 0; //保持当前状态
+        }
+        else {
+            car->distance = 0; //重置距离
+            pc_cnt = 0; //重置计数器
+            return 1; //过弯完成
+        }
+    }
+}
+
+//goto_T
+const float basespeed = 25.0; //基础速度
+int Car_gotoTfuc(CAR *car)
+{
+    Car_setbasespeed(car, basespeed);
+    K230_gettstatus(&(car->k230));
+    if(car->k230.status.tstatus == 1) {
+        //到达T路口，执行相应操作
+        return 1; //到达T路口
+    }
+    else {
+        //未到达T路口，继续前进
+        return 0; //保持当前状态
+    }
+
+}
+
+//goto_N
+int Car_gotoNfuc(CAR *car)
+{
+    Car_setbasespeed(car, basespeed);
+    K230_getnstatus(&(car->k230));
+    if(car->k230.status.nstatus == 1) {
+        //到达N路口，执行相应操作
+        return 1; //到达N路口
+    }
+    else {
+        //未到达N路口，继续前进
+        return 0; //保持当前状态
+    }
+}
+
+
 
 
 

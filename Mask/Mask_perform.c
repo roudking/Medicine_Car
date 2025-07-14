@@ -7,23 +7,26 @@ int Mask_performmask(CAR *car, MASK_ENUM mask_enum)
 	  switch(mask_enum)
 		{
 			case wait_keyon:
-					return Car_waitkeyonfuc(car);
+					return Car_waitkeyonfuc(car); break;
 			case wait_keyoff:
-					return Car_waitkeyofffuc(car);
+					return Car_waitkeyofffuc(car); break;
 			case get_num:
-					return Car_getnumfuc(car);
+					return Car_getnumfuc(car); break;
 			case goto_T:
-					return Car_gotoTfuc(car);
-			// case go_over:
-			// 		return Car_gooverfuc(car);
+					return Car_gotoTfuc(car); break;
+			case goto_N:
+					return Car_gotoNfuc(car); break;
+			case go_over:
+					return Car_gooverfuc(car); break;
 			case turnright:
-					return Car_turnrightfuc(car);
+					return Car_turnrightfuc(car); break;	
 			case turnleft:
-					return Car_turnleftfuc(car);
+					return Car_turnleftfuc(car); break;
 			case turnback:
-					return Car_turnbackfuc(car);
+					return Car_turnbackfuc(car); break;
 			case stop:
 					return Car_stopfuc(car);
+			
 			default:
 					return Car_stopfuc(car);
 			    break;

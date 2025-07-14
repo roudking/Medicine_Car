@@ -39,6 +39,21 @@ void K230_UART_INST_IRQHandler(void)
                     float pos = pos_json->valuedouble;
                     K230_posdataIN(pos);
 				}
+				else if(strcmp(k230_cmd,"tstatus") == 0)
+				 {
+					cJSON *Tstatus_json = cJSON_GetObjectItem(json, "result");
+					int Tstatus;
+					Tstatus = Tstatus_json->valueint;
+					K230_tstatusIN(Tstatus);
+				}
+				else if(strcmp(k230_cmd,"nstatus") == 0)
+				 {
+					cJSON *Nstatus_json = cJSON_GetObjectItem(json, "result");
+					int Nstatus;
+					Nstatus = Nstatus_json->valueint;
+					K230_nstatusIN(Nstatus);
+				}
+
                 
 
 

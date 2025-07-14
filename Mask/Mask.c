@@ -86,6 +86,8 @@ void Mask_Timer_INST_IRQHandler(void)
 	Driver_getmotor_currentspeed(&(car.motor1));
 	Driver_getmotor_currentspeed(&(car.motor2));
 
+    Car_getdistance(&car);
+
     Myhwt101_getdata(&(car.imu));
 
     K230_getposdata(&(car.k230));

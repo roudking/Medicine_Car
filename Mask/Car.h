@@ -21,6 +21,7 @@ typedef enum
    wait_keyoff,
    get_num,
    goto_T,
+   goto_N,
    go_over,
    turnright,
    turnleft,
@@ -54,6 +55,7 @@ typedef struct
     PID position_pid;
 
     float basespeed;
+    int   distance; // 距离
 
     MASK mask;
 
@@ -77,7 +79,8 @@ float Car_getdeltaspeed(CAR *car);
 
 //设置基础速度
 void Car_setbasespeed(CAR *car, float basespeed);
-
+//获取当前距离
+void Car_getdistance(CAR *car);
 
 //任务流程
 //stop
@@ -101,9 +104,13 @@ int Car_turnbackfuc(CAR *car);
 //goto_T
 int Car_gotoTfuc(CAR *car); 
 
+//goto_N
+int Car_gotoNfuc(CAR *car);
+
 //get_num
 int Car_getnumfuc(CAR *car);
 
-
+//go_over
+int Car_gooverfuc(CAR *car);
 
 #endif
