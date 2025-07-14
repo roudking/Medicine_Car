@@ -26,14 +26,14 @@ PID pidturn = {
     .kp = 0.75,
     .ki = 0.00,
     .kd = 2.77,
-    .out_xianfu = 30.0
+    .out_xianfu = 20.0
 };
 
 PID pidposition = {
-    // .kp = 0.75,
-    // .ki = 0.00,
-    // .kd = 2.77,
-    // .out_xianfu = 30.0
+    .kp = 8.0,
+    .ki = 0.00,
+    .kd = 0.0,
+    .out_xianfu = 20.0
 };
 
 
