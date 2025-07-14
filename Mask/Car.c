@@ -1,5 +1,43 @@
 #include "Car.h"
 
+
+//已整定pid
+PID pidL = {
+    .kp = 170.5,
+    .ki =43.0,
+    .kd = 0.0,
+    .out_xianfu = 7199.0
+};
+PID pidR = {
+    .kp = 180.5,
+    .ki =43.0,
+    .kd = 0.0,
+    .out_xianfu = 7199.0
+};
+
+PID pidtrance = {
+    .kp = 0.75,
+    .ki = 0.00,
+    .kd = 2.77,
+    .out_xianfu = 20.0
+};
+
+PID pidturn = {
+    .kp = 0.75,
+    .ki = 0.00,
+    .kd = 2.77,
+    .out_xianfu = 30.0
+};
+
+PID pidposition = {
+    // .kp = 0.75,
+    // .ki = 0.00,
+    // .kd = 2.77,
+    // .out_xianfu = 30.0
+};
+
+
+
 void Car_settrancepid(CAR *car, PID trancepid)
 {
     car->trance_pid = trancepid;

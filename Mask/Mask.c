@@ -2,40 +2,6 @@
 
 //定义对象
 CAR car;
-//已整定pid
-PID pidL = {
-    .kp = 170.5,
-    .ki =43.0,
-    .kd = 0.0,
-    .out_xianfu = 7199.0
-};
-PID pidR = {
-    .kp = 180.5,
-    .ki =43.0,
-    .kd = 0.0,
-    .out_xianfu = 7199.0
-};
-
-PID pidtrance = {
-    .kp = 0.75,
-    .ki = 0.00,
-    .kd = 2.77,
-    .out_xianfu = 20.0
-};
-
-PID pidturn = {
-    .kp = 0.75,
-    .ki = 0.00,
-    .kd = 2.77,
-    .out_xianfu = 30.0
-};
-
-PID pidposition = {
-    // .kp = 0.75,
-    // .ki = 0.00,
-    // .kd = 2.77,
-    // .out_xianfu = 30.0
-};
 
 void Mask_start(void)
 {
@@ -97,11 +63,12 @@ void Mask_Timer_INST_IRQHandler(void)
 
      Mask_performmasks(&car);
     
-     
      Driver_setmotor_targetspeed(&(car.motor1), car.basespeed - delta);
      Driver_setmotor_targetspeed(&(car.motor2), car.basespeed + delta);
 
-    Driver_setspeed(&(car.motor1),&(car.motor2));
+    Debugger_printf("pos:%.3f\n",car.k230.pos);
+
+    // Driver_setspeed(&(car.motor1),&(car.motor2));
 
 }
 
@@ -111,6 +78,8 @@ void Mask_Timer_INST_IRQHandler(void)
     //输出角度信息
     // Debugger_printf("%.3f,%.3f,%.3f\n",car.imu.current_yaw,car.imu.real_yaw,car.imu.zero_yaw);
     // Debugger_printf("%.3f,%.3f,%.3f,%.3f\n",car.imu.real_yaw,car.imu.zero_yaw,car.imu.current_yaw,delta);
+    //输出位置信息
+    // Debugger_printf("pos:%.3f\n",car.k230.pos);
 
 
 //循迹角度环TEST

@@ -62,6 +62,9 @@ typedef struct
     CAR_STATUS status;
 }CAR;
 
+//已整定pid
+extern PID pidL,pidR,pidtrance,pidturn,pidposition;
+
 //设置巡线角度环PID
 void Car_settrancepid(CAR *car, PID trancepid);
 float Car_trancepidcal(CAR *car);
