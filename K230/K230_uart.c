@@ -42,7 +42,7 @@ void K230_UART_INST_IRQHandler(void)
 					cJSON *Nstatus_json = cJSON_GetObjectItem(json, "have_line");
 					int Nstatus;
 					Nstatus = Nstatus_json->valueint;
-					K230_nstatusIN(Nstatus);
+					K230_nstatusIN(1 - Nstatus);
 				
 				memset(k230_cmd_buffer,'\0',sizeof(k230_cmd_buffer));
 		     

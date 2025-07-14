@@ -66,7 +66,6 @@ void Mask_Timer_INST_IRQHandler(void)
      Driver_setmotor_targetspeed(&(car.motor1), car.basespeed - delta);
      Driver_setmotor_targetspeed(&(car.motor2), car.basespeed + delta);
 
-    Debugger_printf("pos:%.3f\n",car.k230.pos);
 
     // Driver_setspeed(&(car.motor1),&(car.motor2));
 
@@ -79,7 +78,7 @@ void Mask_Timer_INST_IRQHandler(void)
     // Debugger_printf("%.3f,%.3f,%.3f\n",car.imu.current_yaw,car.imu.real_yaw,car.imu.zero_yaw);
     // Debugger_printf("%.3f,%.3f,%.3f,%.3f\n",car.imu.real_yaw,car.imu.zero_yaw,car.imu.current_yaw,delta);
     //输出位置信息
-    // Debugger_printf("pos:%.3f\n",car.k230.pos);
+    // Debugger_printf("%.3f,%d,%d\n",car.k230.pos,car.k230.status.nstatus,car.status.tstatus);
 
 
 //循迹角度环TEST
