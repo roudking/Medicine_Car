@@ -8,10 +8,11 @@
 #include "Laser.h"
 #include "Key.h"
 #include "K230.h"
+#include "K210.h"
 
 typedef struct
 {
-    int turn_state;
+    int turnstatus;
 }CAR_STATUS;
 
 typedef enum
@@ -41,6 +42,7 @@ typedef struct
     SERVO servo;
     RASPBERRY raspberry;
     K230  k230;
+    K210  k210;
     LASER rled;
     LASER gled;
     LASER yled;
@@ -75,6 +77,33 @@ float Car_getdeltaspeed(CAR *car);
 
 //设置基础速度
 void Car_setbasespeed(CAR *car, float basespeed);
+
+
+//任务流程
+//stop
+int Car_stopfuc(CAR *car);
+
+//wait_keyon
+int Car_waitkeyonfuc(CAR *car);
+
+//wait_keyoff
+int Car_waitkeyofffuc(CAR *car);
+
+//turnright
+int Car_turnrightfuc(CAR *car);
+
+//turnleft
+int Car_turnleftfuc(CAR *car);
+
+//turnback
+int Car_turnbackfuc(CAR *car);
+
+//goto_T
+int Car_gotoTfuc(CAR *car); 
+
+//get_num
+int Car_getnumfuc(CAR *car);
+
 
 
 #endif

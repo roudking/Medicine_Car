@@ -32,15 +32,15 @@ float Car_positionpidcal(CAR *car)
 
 float Car_getdeltaspeed(CAR *car)
 {
-     if(car->status.turn_status == 1){
+     if(car->status.turnstatus == 1){
       //判定转弯完成,进行状态转换
        if(fabs(car->imu.real_yaw - car->imu.zero_yaw) < 2.0){  
-          car->state.turn_state = 0;
+          car->status.turnstatus = 0;
        }
       return  Car_turnpidcal(car);
      }
 
-     else if(car->status.turn_status == 0){
+     else if(car->status.turnstatus == 0){
        return Car_trancepidcal(car) + Car_positionpidcal(car);
      }
 
@@ -75,6 +75,7 @@ void Car_setbasespeed(CAR *car, float basespeed)
 int Car_stopfuc(CAR *car)
 {
     Car_setbasespeed(car,0.0);
+    return 1;
 }
 
 //wait_keyon
@@ -112,13 +113,13 @@ int Car_turnrightfuc(CAR *car)
    static int pc_cnt = 0;
    if(pc_cnt == 0)
    {
-       car->status.turn_status = 1;
+       car->status.turnstatus = 1;
        car->imu.zero_yaw = car->imu.zero_yaw + 90.0; //设置转弯角度
        pc_cnt++;
        return 0; //转弯开始
    }
    else {
-     if(car->status.turn_status == 1) {
+     if(car->status.turnstatus == 1) {
        return 0; //保持当前状态
     }
       else {
@@ -135,18 +136,77 @@ int Car_turnleftfuc(CAR *car)
    static int pc_cnt = 0;
    if(pc_cnt == 0)
    {
-       car->status.turn_status = 1;
+       car->status.turnstatus = 1;
        car->imu.zero_yaw = car->imu.zero_yaw - 90.0; //设置转弯角度
        pc_cnt++;
        return 0; //转弯开始
    }
    else {
-     if(car->status.turn_status == 1) {
+     if(car->status.turnstatus == 1) {
        return 0; //保持当前状态
     }
       else {
        pc_cnt = 0; //重置计数器
        return 1; //转弯完成
-  }
+      }
 
+    }
 }
+
+//turnback
+int Car_turnbackfuc(CAR *car)
+{
+   static int pc_cnt = 0;
+   if(pc_cnt == 0)
+   {
+       car->status.turnstatus = 1;
+       car->imu.zero_yaw = car->imu.zero_yaw + 180.0; //设置转弯角度
+       pc_cnt++;
+       return 0; //转弯开始
+   }
+   else {
+     if(car->status.turnstatus == 1) {
+       return 0; //保持当前状态
+    }
+      else {
+       pc_cnt = 0; //重置计数器
+       return 1; //转弯完成
+     }
+
+   }
+}
+
+//goto_T
+const float basespeed = 25.0; //基础速度
+int Car_gotoTfuc(CAR *car)
+{
+    Car_setbasespeed(car, basespeed);
+    return 1;
+}
+
+//get_num
+int Car_getnumfuc(CAR *car)
+{
+    static int pc_cnt = 0;
+    if(pc_cnt == 0)
+    {
+        K210_setnumstatus(1); //启动K210获取数字 标志位置位
+        pc_cnt++;
+        return 0; //开始获取
+    }
+    else {
+        K210_getnumstatus(&(car->k210));
+        if(car->k210.status.numstatus == 1) {
+            return 0; //保持当前状态
+        }
+        else {
+           K210_getnumdata(&(car->k210)); //获取数字
+            pc_cnt = 0; //重置计数器
+            return 1; //获取完成
+        }
+    }
+}
+
+
+
+

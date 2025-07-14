@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "servo.h": "c"
+        "servo.h": "c",
+        "k210_uart.h": "c"
     }
 }

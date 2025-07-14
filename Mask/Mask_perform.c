@@ -2,64 +2,28 @@
 #include "Car.h"
 
 
-int Mask_performask(CAR *car, MASK_ENUM mask_enum)
+int Mask_performmask(CAR *car, MASK_ENUM mask_enum)
 {
 	  switch(mask_enum)
 		{
-			case wait_start:
-					return Car_waitstartfuc(car);
-					break;
-			case goto_line:
-				  return Car_gotolinefuc(car);
-					break;
-			case goto_turnright:
-				  return Car_gototurnrightfuc(car);
-					break;
-			case goto_turnleft:
-				  return Car_gototurnleftfuc(car);
-					break;
-			case go_strightoverflow:
-					return Car_gostrightoverflowfuc(car);
-					break;
+			case wait_keyon:
+					return Car_waitkeyonfuc(car);
+			case wait_keyoff:
+					return Car_waitkeyofffuc(car);
+			case get_num:
+					return Car_getnumfuc(car);
+			case goto_T:
+					return Car_gotoTfuc(car);
+			// case go_over:
+			// 		return Car_gooverfuc(car);
 			case turnright:
 					return Car_turnrightfuc(car);
-					break;
 			case turnleft:
 					return Car_turnleftfuc(car);
-					break;
-			case beep:
-					return Car_beepfuc(car);
-					break;
+			case turnback:
+					return Car_turnbackfuc(car);
 			case stop:
 					return Car_stopfuc(car);
-					break;
-			case go_avoidance:
-				  return Car_goavoidance(car);
-				  break;
-			case gobackto_line:
-				  return Car_gobacktolinefuc(car);
-				  break;
-			case goto_allwhite:
-				  return Car_gotoallwhitefuc(car);
-				  break;
-			case getnum:
-				  return Car_getnumberfuc(car);
-				  break;
-			case turnleftto_line:
-				  return Car_turnlefttolinefuc(car);
-				  break;
-			case gountil_end:
-				  return Car_gountilend(car);
-				  break;
-			case turnto_end:
-				  return Car_turntoend(car);
-				  break;
-			case resethwt101:
-					return Car_resethwt101fuc(car);
-				  break;		
-			case voice_trace:
-					return Car_voicetrance(car);
-				  break;		
 			default:
 					return Car_stopfuc(car);
 			    break;
