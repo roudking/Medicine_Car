@@ -19,7 +19,7 @@ PID pidtrance = {
     .kp = 0.75,
     .ki = 0.00,
     .kd = 2.77,
-    .out_xianfu = 20.0
+    .out_xianfu = 6.5
 };
 
 PID pidturn = {
@@ -30,9 +30,9 @@ PID pidturn = {
 };
 
 PID pidposition = {
-    .kp = 8.0,
+    .kp = 9.5,
     .ki = 0.00,
-    .kd = 0.0,
+    .kd = 10.5,
     .out_xianfu = 20.0
 };
 
