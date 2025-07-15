@@ -1,0 +1,11 @@
+最开始
+主：{"cmd":"mode","park":"A"/"B","target":1(远)/0(近)}
+从：{"cmd":"mode","result":"ok"}
+
+
+主车等待从车到位
+主：{"cmd":"run"}
+从： {"cmd":"run","parked":1} //到位
+
+从车等待主车发送启动命令
+主车:{"cmd":"start"}

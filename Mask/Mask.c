@@ -3,68 +3,16 @@
 //定义对象
 CAR car;
 
-//// typedef enum
-// {
-//    wait_keyon,
-//    wait_keyoff,
-//    get_num,
-//    goto_T,
-//    goto_N,
-//    go_over,
-//    turnright,
-//    turnleft,
-//    turnback,
-//    stop
-// }MASK_ENUM;
-
-MASK mask = {
+MASK mask_start = {
     .mask_list = {        
-        stop,
-        wait_keyoff,
-        goto_T,
-        go_over,
-        turnright,
-        goto_N,
-        go_over,
-        stop,
-        wait_keyon,
-        turnback,
-        goto_T,
-        go_over,
-        turnright,
-        goto_T,
-        go_over,
-        turnright,
-        goto_N,
-        go_over,
-        stop,
-        wait_keyoff,
-        turnback,
-        goto_T,
-        go_over,
-        turnright,
-        goto_T,
-        go_over,
-        turnright,
-        goto_T,
-        go_over,
-        turnright,
-        goto_N,
-        go_over,
-        stop,
-        wait_keyon,
-        turnback,
-        goto_T,
-        go_over,
-        turnleft,
-        goto_T,
-        go_over,
-        turnleft,
-        goto_N,
-        go_over,
-        stop
+       stop,
+       get_num,
+       get_mode,
+       wait_run,
+       wait_keyoff,
+       mask_load
     },
-    .mask_num = 6
+    .mask_num = 12
 };
 
 void Mask_start(void)
@@ -112,7 +60,7 @@ void Mask_start(void)
      Car_setpositionpid(&car, pidposition);
      
      //设置任务流程
-     Mask_setmask(&car, mask);
+     Mask_setmask(&car, mask_start);
 
     //开启任务定时中断
      tim_it_start(Mask_Timer_INST,Mask_Timer_INST_INT_IRQN);
@@ -211,3 +159,54 @@ void Mask_Timer_INST_IRQHandler(void)
 //     Driver_setmotor_targetspeed(&(car.motor1),0.0);  
 //     Driver_setmotor_targetspeed(&(car.motor2),0.0);
 //   }
+
+//稳定性测试任务流程
+// MASK mask = {
+//     .mask_list = {        
+//         stop,
+//         wait_keyoff,
+//         goto_T,
+//         go_over,
+//         turnright,
+//         goto_N,
+//         go_over,
+//         stop,
+//         wait_keyon,
+//         turnback,
+//         goto_T,
+//         go_over,
+//         turnright,
+//         goto_T,
+//         go_over,
+//         turnright,
+//         goto_N,
+//         go_over,
+//         stop,
+//         wait_keyoff,
+//         turnback,
+//         goto_T,
+//         go_over,
+//         turnright,
+//         goto_T,
+//         go_over,
+//         turnright,
+//         goto_T,
+//         go_over,
+//         turnright,
+//         goto_N,
+//         go_over,
+//         stop,
+//         wait_keyon,
+//         turnback,
+//         goto_T,
+//         go_over,
+//         turnleft,
+//         goto_T,
+//         go_over,
+//         turnleft,
+//         goto_N,
+//         go_over,
+//         stop
+//     },
+//     .mask_num = 40
+// };

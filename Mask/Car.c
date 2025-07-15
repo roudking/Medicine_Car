@@ -103,18 +103,25 @@ void Car_getdistance(CAR *car)
    car->distance += (car->motor1.currentspeed + car->motor2.currentspeed) / 2.0;
 }   
 
+
+
 // typedef enum
 // {
-//    wait_keyon,
-//    wait_keyoff,
-//    get_num,
-//    goto_T,
-//    goto_N,
-//    go_over,
-//    turnright,
-//    turnleft,
-//    turnback,
-//    stop
+//     stop, //停止
+//     wait_keyon, //等待按键放置药品  
+//     wait_keyoff, //等待按键取走药品
+//     turnright, //右转
+//     turnleft, //左转
+//     turnback, //掉头
+//     go_over, //过弯
+//     goto_T, //到达T路口
+//     goto_N, //到达N路口
+//     get_num, //获取数字
+//     get_mode, //获取模式
+//     get_run, //获取运行状态
+//     echo_park, //回复到位
+//     mask_load //加载任务流程
+//     wait_start //等待开始
 // }MASK_ENUM;
 
 //任务流程书写；
@@ -157,12 +164,12 @@ int Car_waitkeyofffuc(CAR *car)
 //turnright
 int Car_turnrightfuc(CAR *car)
 {
-   static int pc_cnt = 0;
-   if(pc_cnt == 0)
+   static int pc = 0;
+   if(pc == 0)
    {
        car->status.turnstatus = 1;
        car->imu.zero_yaw = car->imu.zero_yaw - 90.0; //设置转弯角度
-       pc_cnt++;
+       pc++;
        return 0; //转弯开始
    }
    else {
@@ -170,7 +177,7 @@ int Car_turnrightfuc(CAR *car)
        return 0; //保持当前状态
     }
       else {
-       pc_cnt = 0; //重置计数器
+       pc = 0; //重置计数器
        return 1; //转弯完成
      }
 
@@ -180,12 +187,12 @@ int Car_turnrightfuc(CAR *car)
 //turnleft
 int Car_turnleftfuc(CAR *car)
 {
-   static int pc_cnt = 0;
-   if(pc_cnt == 0)
+   static int pc = 0;
+   if(pc == 0)
    {
        car->status.turnstatus = 1;
        car->imu.zero_yaw = car->imu.zero_yaw + 90.0; //设置转弯角度
-       pc_cnt++;
+       pc++;
        return 0; //转弯开始
    }
    else {
@@ -193,7 +200,7 @@ int Car_turnleftfuc(CAR *car)
        return 0; //保持当前状态
     }
       else {
-       pc_cnt = 0; //重置计数器
+       pc = 0; //重置计数器
        return 1; //转弯完成
       }
 
@@ -203,12 +210,12 @@ int Car_turnleftfuc(CAR *car)
 //turnback
 int Car_turnbackfuc(CAR *car)
 {
-   static int pc_cnt = 0;
-   if(pc_cnt == 0)
+   static int pc = 0;
+   if(pc == 0)
    {
        car->status.turnstatus = 1;
        car->imu.zero_yaw = car->imu.zero_yaw + 180.0; //设置转弯角度
-       pc_cnt++;
+       pc++;
        return 0; //转弯开始
    }
    else {
@@ -216,7 +223,7 @@ int Car_turnbackfuc(CAR *car)
        return 0; //保持当前状态
     }
       else {
-       pc_cnt = 0; //重置计数器
+       pc = 0; //重置计数器
        return 1; //转弯完成
      }
 
@@ -226,11 +233,11 @@ int Car_turnbackfuc(CAR *car)
 //get_num
 int Car_getnumfuc(CAR *car)
 {
-    static int pc_cnt = 0;
-    if(pc_cnt == 0)
+    static int pc = 0;
+    if(pc == 0)
     {
         K210_setnumstatus(1); //启动K210获取数字 标志位置位
-        pc_cnt++;
+        pc++;
         return 0; //开始获取
     }
     else {
@@ -240,21 +247,22 @@ int Car_getnumfuc(CAR *car)
         }
         else {
            K210_getnumdata(&(car->k210)); //获取数字
-            pc_cnt = 0; //重置计数器
+            pc = 0; //重置计数器
             return 1; //获取完成
         }
     }
 }
 
+
 //go_over
 const float go_over_distance = 550.0; //过弯距离
 int Car_gooverfuc(CAR *car)
 {
-    static int pc_cnt = 0;
-    if(pc_cnt == 0)
+    static int pc = 0;
+    if(pc == 0)
     {
      car->distance = 0; //重置距离
-        pc_cnt++;
+        pc++;
         return 0; //开始转弯
     }
     else {
@@ -264,7 +272,7 @@ int Car_gooverfuc(CAR *car)
         }
         else {
             car->distance = 0; //重置距离
-            pc_cnt = 0; //重置计数器
+            pc = 0; //重置计数器
             return 1; //过弯完成
         }
     }
@@ -302,8 +310,215 @@ int Car_gotoNfuc(CAR *car)
     }
 }
 
+//get_mode
+int Car_getmodefuc(CAR *car)
+{
+    Raspberry_getmodedata_update(&(car->raspberry));
+    if(car->raspberry.status.modedata_update == 1) {
+         //模式数据已更新
+         Raspberry_getmodedata(&(car->raspberry)); //获取模式数据
+         //发送{"cmd":"mode","result":"ok"}
+         Raspberry_printf("{\"cmd\":\"mode\",\"result\":\"ok\"}\n");
+         return 1; //获取完成
+    }
+    else {
+         return 0; //保持当前状态
+    }
+}
 
+//wait_run
+int Car_waitrunfuc(CAR *car)
+{
+    Raspberry_getrun(&(car->raspberry));
+    if(car->raspberry.status.run == 1) {
+         return 1; //获取完成
+    }
+    else {
+         return 0; //保持当前状态
+    }
+}
 
+//echo_park
+int Car_echoparkfuc(CAR *car)
+{
+//回复{"cmd":"run","parked":1} //到位
+    Raspberry_printf("{\"cmd\":\"run\",\"parked\":1}\n");
+    return 1; //回复完成
+}
 
+//wait_start
+int Car_waitstartfuc(CAR *car)
+{
+    Raspberry_getstart(&(car->raspberry));
+    if(car->raspberry.status.start == 1) {
+        //开始状态为1，开始执行任务
+        return 1; //开始执行任务
+    }
+    else {
+        //开始状态为0，保持等待
+        return 0; //保持当前状态
+    }
+}
 
+//
+MASK mask_a = {
+    .mask_list = {    
+       stop,  
+       goto_T,
+       go_over,
+       goto_T,
+       go_over,
+       turnleft,
+       goto_N,
+       go_over,
+       stop,
+       echo_park,      
+       wait_start,
 
+       turnback,
+       goto_N,
+       go_over,
+       stop
+    
+    },
+    .mask_num = 14
+};
+
+MASK mask_b = {
+    .mask_list = {    
+       stop,  
+       goto_T,
+       go_over,
+       goto_T,
+       go_over,
+       turnright,
+       goto_N,
+       go_over,
+       stop,
+       echo_park,      
+       wait_start,
+
+       turnback,
+       goto_N,
+       go_over,
+       stop
+    },
+    .mask_num = 14
+};
+
+MASK mask_c = {
+    .mask_list = {    
+     stop,
+     goto_T,
+     go_over,
+     goto_T,
+     go_over,
+     turnright,
+     goto_N,
+     go_over,
+     stop,
+     echo_park,
+     wait_start,
+
+     turnback,
+     goto_T,
+     go_over,
+     turnright,
+     goto_T,
+     get_num,
+     go_over,
+     mask_load
+    },
+    .mask_num = 20
+};
+
+MASK mask_c1 = {
+    .mask_list = {    
+    turnright,
+    goto_T,
+    get_num,
+    go_over,
+    mask_load
+    },
+    .mask_num = 5
+};
+
+MASK mask_c2 = {
+    .mask_list = {    
+    turnleft,
+    goto_T,
+    get_num,
+    go_over,
+    mask_load
+    },
+    .mask_num = 5
+};
+
+MASK mask_c3 = {
+    .mask_list = {
+        turnright,
+        goto_N,
+        go_over,
+        stop
+    },
+    .mask_num = 4
+};
+
+MASK mask_c4 = {
+    .mask_list = {
+        turnleft,
+        goto_N,
+        go_over,
+        stop
+    },
+    .mask_num = 4
+};
+
+//mask_load
+int Car_maskloadfuc(CAR *car)
+{
+  if(car->raspberry.mode.target == 0)
+  {
+    if(car->raspberry.mode.park == 'A')
+    {
+        Mask_setmask(&car->mask, mask_a);
+    }
+    else if(car->raspberry.mode.park == 'B')
+    {
+        Mask_setmask(&car->mask, mask_b);
+    }
+  }
+  else if(car->raspberry.mode.target == 1)
+  {
+    static int pc = 0;
+    if(pc == 0)
+    {
+        car->target_num = car->k210.num[0]; //设置目标数字
+        Mask_setmask(&car->mask, mask_c);
+        pc++;
+    }
+    else if(pc == 1)
+    {
+      if(car->k210.num[0] == car->target_num || car->k210.num[1] == car->target_num)
+      {
+        Mask_setmask(&car->mask, mask_c1);
+      }
+      else{
+        Mask_setmask(&car->mask, mask_c2);
+      }
+        pc++;
+    }
+    else if(pc == 2)
+    {
+      if(car->k210.num[0] == car->target_num || car->k210.num[1] == car->target_num)
+      {
+        Mask_setmask(&car->mask, mask_c3);
+      }
+      else{
+        Mask_setmask(&car->mask, mask_c4);
+      }
+   }
+ }
+  
+   return 1; //加载完成
+}

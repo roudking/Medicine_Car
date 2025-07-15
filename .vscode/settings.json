@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "servo.h": "c",
-        "k210_uart.h": "c"
+        "k210_uart.h": "c",
+        "mask.h": "c",
+        "mask_perform.h": "c"
     }
 }

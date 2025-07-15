@@ -1,6 +1,4 @@
 #include "Mask_perform.h"
-#include "Car.h"
-
 
 int Mask_performmask(CAR *car, MASK_ENUM mask_enum)
 {
@@ -26,6 +24,16 @@ int Mask_performmask(CAR *car, MASK_ENUM mask_enum)
 					return Car_turnbackfuc(car); break;
 			case stop:
 					return Car_stopfuc(car);
+			case mask_load:
+				    return Car_maskloadfuc(car); break;
+			case echo_park:
+					return Car_echoparkfuc(car); break;
+			case wait_run:
+					return Car_waitrunfuc(car); break;
+			case get_mode:
+					return Car_getmodefuc(car); break;
+			case wait_start:
+					return Car_waitstartfuc(car); break;
 			default:
 					return Car_stopfuc(car);
 			    break;
@@ -43,15 +51,15 @@ void Mask_setmask(CAR *car,MASK mask)
 {
     car->mask = mask;
     car->mask.mask_num = Mask_getmasknum(mask);
+	car->mask.mask_pc = 0; // 初始化mask_pc为0
 }
 
 void Mask_performmasks(CAR *car)
 {
-	static int cnt = 0;
-	if(cnt < car->mask.mask_num)
+	if(car->mask.mask_pc < car->mask.mask_num)
 	 {
-		 int i = Mask_performmask(car,car->mask.mask_list[cnt]);
-		  cnt = cnt + i;
+		 int i = Mask_performmask(car,car->mask.mask_list[car->mask.mask_pc]);
+		  car->mask.mask_pc = car->mask.mask_pc + i;
 	 }
 	else
 	 {

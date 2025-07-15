@@ -6,37 +6,36 @@
 
 
 typedef struct{
-    int key_status;
-    int reset_status;
+     int modedata_update;
+     int run;   //运行指令
+     int start; //开始指令
 }RASPBERRY_STATUS;
+
+typedef struct{
+     char park;
+     int target;
+}MODE;
 
 typedef struct
 {
-    volatile float leftspeed;
-    volatile float rightspeed;
-	volatile char led_color;
-    volatile float angle;
+    MODE mode; // 模式
 	volatile RASPBERRY_STATUS status;
 }RASPBERRY;
 
 void Raspberry_init(void);
 
-void Raspberry_leftspeeddataIN(float leftspeed);
-void Raspberry_rightspeeddataIN(float rightspeed);
-void Raspberry_getleftspeed(RASPBERRY *raspberry);
-void Raspberry_getrightspeed(RASPBERRY *raspberry);
+//获得模式数据
+void Raspberry_modedataIN(MODE mode);
+void Raspberry_getmodedata(RASPBERRY *raspberry);
+void Raspberry_modedata_updateIN(int status);
+void Raspberry_getmodedata_update(RASPBERRY *raspberry);
 
-void Raspberry_angledataIN(float angle);
-void Raspberry_getangle(RASPBERRY *raspberry);
+//获取运行指令
+void Raspberry_runIN(int run);
+void Raspberry_getrun(RASPBERRY *raspberry);
 
-void Raspberr_colorIN(char color);
-void Raspberry_getcolor(RASPBERRY *raspberry);
-
-void Raspberry_keystatusIN(int status);
-void Raspberry_getkeystatus(RASPBERRY *raspberry);
-
-void Raspberry_resetstatusIN(int status);
-void Raspberry_getresetstatus(RASPBERRY *raspberry);
-
+//获取开始指令
+void Raspberry_startIN(int start);
+void Raspberry_getstart(RASPBERRY *raspberry);
 
 #endif

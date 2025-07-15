@@ -38,42 +38,29 @@ void Raspberry_Pi_UART_INST_IRQHandler(void)
 					// 发送响应
 					Raspberry_printf("{\"cmd\":\"ping\",\"result\":true}\n");
 				}
-				else if(strcmp(raspberry_cmd,"speed") == 0)
-				{
-					cJSON *leftspeed_json = cJSON_GetObjectItem(json, "l");
-					cJSON *rightspeed_json = cJSON_GetObjectItem(json, "r");
-							
-			       
-			    	float left_speed = leftspeed_json->valuedouble;
-                    float right_speed = rightspeed_json->valuedouble;
+				else if(strcmp(raspberry_cmd,"mode") == 0)
+				{ 
+				  MODE mode;
+				  cJSON *park_json = cJSON_GetObjectItem(json, "park");
+			       mode.park = park_json->valuestring[0];
+  
+				  cJSON *target_json = cJSON_GetObjectItem(json, "target");
+				   mode.target = target_json->valueint;
 
-                    
-					Raspberry_leftspeeddataIN(left_speed);
-                    Raspberry_rightspeeddataIN(right_speed);
-
+				  Raspberry_modedataIN(mode);
+				  Raspberry_modedata_updateIN(1); //更新模式数据状态
+			
 				}
-				else if(strcmp(raspberry_cmd,"turn") == 0)
-				{
-				  cJSON *angle_json = cJSON_GetObjectItem(json, "angle");
-				  // 从 angle 中提取数字字符串
-				  float angle = angle_json->valuedouble;
-				  Raspberry_angledataIN(angle);
+				else if(strcmp(raspberry_cmd,"run") == 0)
+				{ 
+			      Raspberry_runIN(1); //更新运行状态
+				}
+				else if(strcmp(raspberry_cmd,"start") == 0)
+				{ 
+				  Raspberry_startIN(1); //更新开始状态
+				}
 
-				 }
-                 else if(strcmp(raspberry_cmd,"color") == 0)
-                 {
-                    cJSON *color_json = cJSON_GetObjectItem(json, "color");
-                    char color = color_json->valuestring[0];  //潜在风险
-                    Raspberr_colorIN(color);
-                 }
-                 else if(strcmp(raspberry_cmd,"is_drug_loaded") == 0)
-                 {
-                     Raspberry_keystatusIN(1);
-                 }
-                 else if(strcmp(raspberry_cmd,"reset") == 0)
-                 {
-                     Raspberry_resetstatusIN(1);
-                 }
+
 
 				memset(raspberry_cmd_buffer,'\0',sizeof(raspberry_cmd_buffer));
 				memset(raspberry_cmd,'\0',sizeof(raspberry_cmd));
@@ -82,5 +69,3 @@ void Raspberry_Pi_UART_INST_IRQHandler(void)
 	      cJSON_Delete(json);	
       }
 }
-
-

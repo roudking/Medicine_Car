@@ -9,6 +9,7 @@
 #include "Key.h"
 #include "K230.h"
 #include "K210.h"
+#include "Mask_perform.h"
 
 typedef struct
 {
@@ -27,6 +28,11 @@ typedef enum
    turnright,
    turnleft,
    turnback,
+   mask_load,
+   echo_park,
+   wait_run,
+   wait_start,
+   get_mode,
    stop
 }MASK_ENUM;
 
@@ -34,6 +40,7 @@ typedef struct
 {
     MASK_ENUM mask_list[200];
     int mask_num;
+    int mask_pc;
 }MASK;
 
 
@@ -58,7 +65,8 @@ typedef struct
     float basespeed;// 基础速度
     int   distance; // 距离
 
-    MASK mask;
+    volatile MASK mask;
+    int target_num; // 目标数字
 
     CAR_STATUS status;
 }CAR;
@@ -116,5 +124,20 @@ int Car_getnumfuc(CAR *car);
 
 //go_over
 int Car_gooverfuc(CAR *car);
+
+//get_mode
+int Car_getmodefuc(CAR *car);
+
+//echo_park
+int Car_echoparkfuc(CAR *car);
+
+//wait_start
+int Car_waitstartfuc(CAR *car);
+
+//wait_run
+int Car_waitrunfuc(CAR *car);
+
+//mask_load
+int Car_maskloadfuc(CAR *car);
 
 #endif
