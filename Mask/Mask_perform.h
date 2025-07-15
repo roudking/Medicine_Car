@@ -3,7 +3,6 @@
 
 #include "Car.h"
 
-void Mask_setmask(CAR *car,MASK mask);
 void Mask_performmasks(CAR *car);
 
 #endif

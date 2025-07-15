@@ -3,6 +3,8 @@
         "servo.h": "c",
         "k210_uart.h": "c",
         "mask.h": "c",
-        "mask_perform.h": "c"
+        "mask_perform.h": "c",
+        "car.h": "c",
+        "driver.h": "c"
     }
 }

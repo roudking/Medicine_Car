@@ -9,7 +9,6 @@
 #include "Key.h"
 #include "K230.h"
 #include "K210.h"
-#include "Mask_perform.h"
 
 typedef struct
 {
@@ -73,6 +72,9 @@ typedef struct
 
 //已整定pid
 extern PID pidL,pidR,pidtrance,pidturn,pidposition;
+
+//载入任务
+void Car_setmask(CAR *car,MASK mask);
 
 //设置巡线角度环PID
 void Car_settrancepid(CAR *car, PID trancepid);

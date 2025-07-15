@@ -42,17 +42,6 @@ int Mask_performmask(CAR *car, MASK_ENUM mask_enum)
 
 }
 
-static int Mask_getmasknum(MASK mask)
-{
-    return sizeof(mask.mask_list)/sizeof(mask.mask_list[0]);
-}
-
-void Mask_setmask(CAR *car,MASK mask)
-{
-    car->mask = mask;
-    car->mask.mask_num = Mask_getmasknum(mask);
-	car->mask.mask_pc = 0; // 初始化mask_pc为0
-}
 
 void Mask_performmasks(CAR *car)
 {

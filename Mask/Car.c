@@ -36,7 +36,18 @@ PID pidposition = {
     .out_xianfu = 20.0
 };
 
+//载入任务
+static int Mask_getmasknum(MASK mask)
+{
+    return sizeof(mask.mask_list)/sizeof(mask.mask_list[0]);
+}
 
+void Car_setmask(CAR *car,MASK mask)
+{
+    car->mask = mask;
+    car->mask.mask_num = Mask_getmasknum(mask);
+	car->mask.mask_pc = 0; // 初始化mask_pc为0
+}
 
 void Car_settrancepid(CAR *car, PID trancepid)
 {
@@ -481,11 +492,11 @@ int Car_maskloadfuc(CAR *car)
   {
     if(car->raspberry.mode.park == 'A')
     {
-        Mask_setmask(&car->mask, mask_a);
+        Car_setmask(car, mask_a);
     }
     else if(car->raspberry.mode.park == 'B')
     {
-        Mask_setmask(&car->mask, mask_b);
+        Car_setmask(car, mask_b);
     }
   }
   else if(car->raspberry.mode.target == 1)
@@ -494,17 +505,17 @@ int Car_maskloadfuc(CAR *car)
     if(pc == 0)
     {
         car->target_num = car->k210.num[0]; //设置目标数字
-        Mask_setmask(&car->mask, mask_c);
+        Car_setmask(car, mask_c);
         pc++;
     }
     else if(pc == 1)
     {
       if(car->k210.num[0] == car->target_num || car->k210.num[1] == car->target_num)
       {
-        Mask_setmask(&car->mask, mask_c1);
+        Car_setmask(car, mask_c1);
       }
       else{
-        Mask_setmask(&car->mask, mask_c2);
+        Car_setmask(car, mask_c2);
       }
         pc++;
     }
@@ -512,10 +523,10 @@ int Car_maskloadfuc(CAR *car)
     {
       if(car->k210.num[0] == car->target_num || car->k210.num[1] == car->target_num)
       {
-        Mask_setmask(&car->mask, mask_c3);
+        Car_setmask(car, mask_c3);
       }
       else{
-        Mask_setmask(&car->mask, mask_c4);
+        Car_setmask(car, mask_c4);
       }
    }
  }

@@ -60,7 +60,7 @@ void Mask_start(void)
      Car_setpositionpid(&car, pidposition);
      
      //设置任务流程
-     Mask_setmask(&car, mask_start);
+     Car_setmask(&car, mask_start);
 
     //开启任务定时中断
      tim_it_start(Mask_Timer_INST,Mask_Timer_INST_INT_IRQN);
