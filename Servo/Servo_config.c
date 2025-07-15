@@ -1,9 +1,7 @@
 #include "Servo_config.h"
 
-#define Servo_Timer_Port    htim1
-#define Servo_TIM_channel TIM_CHANNEL_1
-#define Servo_TIM_CounterCycleTime    10000000.0/Servo_INST_CLK_FREQ    //us
-#define Servo_kind servo_180
+#define Servo_TIM_CounterCycleTime    1000000.0/Servo_INST_CLK_FREQ    //us
+#define Servo_kind servo_270
 #define bias 0.0f
 
 SERVO_CONFIG servo_config = {

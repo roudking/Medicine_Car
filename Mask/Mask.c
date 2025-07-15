@@ -97,6 +97,11 @@ void Mask_start(void)
     //按键初始化
      Key_create(&(car.key), key1_config);
 
+    //舵机初始化
+     Servo_create(&(car.servo), servo_config);
+     Servo_init(&(car.servo));
+     Servo_setangle(&(car.servo), 135.0f);
+
     //设置trancePID
      Car_settrancepid(&car, pidtrance);
 
@@ -135,7 +140,7 @@ void Mask_Timer_INST_IRQHandler(void)
      Driver_setmotor_targetspeed(&(car.motor2), car.basespeed + delta);
 
 
-    Driver_setspeed(&(car.motor1),&(car.motor2));
+    // Driver_setspeed(&(car.motor1),&(car.motor2));
 
 }
 
