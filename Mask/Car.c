@@ -79,7 +79,14 @@ float Car_getdeltaspeed(CAR *car)
      }
 
      else if(car->status.turnstatus == 0){
-       return Car_trancepidcal(car) + Car_positionpidcal(car);
+        if(car->basespeed == 0.0)
+        {
+            return Car_trancepidcal(car);
+        }
+        else
+        {
+            return Car_trancepidcal(car) + Car_positionpidcal(car);
+        }
      }
 
 }
