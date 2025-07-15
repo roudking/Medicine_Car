@@ -33,6 +33,7 @@ MASK mask = {
         goto_N,
         go_over,
         stop, 
+        wait_keyoff,
         turnback,
         goto_T,
         go_over,
@@ -110,7 +111,7 @@ void Mask_Timer_INST_IRQHandler(void)
 
 
      Mask_performmasks(&car);
-    
+
      Driver_setmotor_targetspeed(&(car.motor1), car.basespeed - delta);
      Driver_setmotor_targetspeed(&(car.motor2), car.basespeed + delta);
 

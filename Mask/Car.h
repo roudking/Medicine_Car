@@ -55,7 +55,7 @@ typedef struct
     PID turn_pid;
     PID position_pid;
 
-    float basespeed;
+    float basespeed;// 基础速度
     int   distance; // 距离
 
     MASK mask;

@@ -26,7 +26,7 @@ PID pidturn = {
     .kp = 0.75,
     .ki = 0.00,
     .kd = 2.77,
-    .out_xianfu = 20.0
+    .out_xianfu = 37.0
 };
 
 PID pidposition = {
@@ -240,7 +240,7 @@ int Car_getnumfuc(CAR *car)
 }
 
 //go_over
-const float go_over_distance = 390.0; //过弯距离
+const float go_over_distance = 550.0; //过弯距离
 int Car_gooverfuc(CAR *car)
 {
     static int pc_cnt = 0;

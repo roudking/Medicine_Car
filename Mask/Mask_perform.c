@@ -26,7 +26,6 @@ int Mask_performmask(CAR *car, MASK_ENUM mask_enum)
 					return Car_turnbackfuc(car); break;
 			case stop:
 					return Car_stopfuc(car);
-			
 			default:
 					return Car_stopfuc(car);
 			    break;
