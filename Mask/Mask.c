@@ -18,32 +18,14 @@ CAR car;
 // }MASK_ENUM;
 
 MASK mask = {
-    .mask_list = {
-        stop,
-        goto_T,
-        go_over,
-        goto_T,
-        go_over,
-        goto_T,
-        go_over,
-        turnright,
-        goto_T,
-        go_over,
-        turnright,
-        goto_N,
-        go_over,
-        stop, 
-        wait_keyoff,
-        turnback,
-        goto_T,
-        go_over,
-        turnleft,
-        goto_T,
-        go_over,
-        turnleft,
-        goto_N,
-        go_over,
-        stop
+    .mask_list = {        
+        // stop,
+        // wait_keyoff,
+        // goto_T,
+        // go_over,
+        // turnright,
+        // goto_N,
+        // turnback
     },
     .mask_num = 6
 };
