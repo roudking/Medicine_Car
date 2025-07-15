@@ -240,7 +240,7 @@ int Car_getnumfuc(CAR *car)
 }
 
 //go_over
-const float go_over_distance = 750.0; //过弯距离
+const float go_over_distance = 390.0; //过弯距离
 int Car_gooverfuc(CAR *car)
 {
     static int pc_cnt = 0;
@@ -264,7 +264,7 @@ int Car_gooverfuc(CAR *car)
 }
 
 //goto_T
-const float basespeed = 35.0; //基础速度
+const float basespeed = 45.0; //基础速度
 int Car_gotoTfuc(CAR *car)
 {
     Car_setbasespeed(car, basespeed);

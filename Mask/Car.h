@@ -13,6 +13,7 @@
 typedef struct
 {
     int turnstatus;
+    int trance_status;
 }CAR_STATUS;
 
 typedef enum
