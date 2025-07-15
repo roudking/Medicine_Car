@@ -32,7 +32,7 @@ PID pidturn = {
 PID pidposition = {
     .kp = 9.5,
     .ki = 0.00,
-    .kd = 10.5,
+    .kd = 11.0,
     .out_xianfu = 20.0
 };
 
@@ -154,7 +154,7 @@ int Car_turnrightfuc(CAR *car)
    if(pc_cnt == 0)
    {
        car->status.turnstatus = 1;
-       car->imu.zero_yaw = car->imu.zero_yaw + 90.0; //设置转弯角度
+       car->imu.zero_yaw = car->imu.zero_yaw - 90.0; //设置转弯角度
        pc_cnt++;
        return 0; //转弯开始
    }
@@ -177,7 +177,7 @@ int Car_turnleftfuc(CAR *car)
    if(pc_cnt == 0)
    {
        car->status.turnstatus = 1;
-       car->imu.zero_yaw = car->imu.zero_yaw - 90.0; //设置转弯角度
+       car->imu.zero_yaw = car->imu.zero_yaw + 90.0; //设置转弯角度
        pc_cnt++;
        return 0; //转弯开始
    }
@@ -240,13 +240,14 @@ int Car_getnumfuc(CAR *car)
 }
 
 //go_over
-const float go_over_distance = 500; 
+const float go_over_distance = 1000.0; //过弯距离
 int Car_gooverfuc(CAR *car)
 {
     static int pc_cnt = 0;
     if(pc_cnt == 0)
     {
      car->distance = 0; //重置距离
+        pc_cnt++;
         return 0; //开始转弯
     }
     else {

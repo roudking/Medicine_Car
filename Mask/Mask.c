@@ -3,6 +3,50 @@
 //定义对象
 CAR car;
 
+//// typedef enum
+// {
+//    wait_keyon,
+//    wait_keyoff,
+//    get_num,
+//    goto_T,
+//    goto_N,
+//    go_over,
+//    turnright,
+//    turnleft,
+//    turnback,
+//    stop
+// }MASK_ENUM;
+
+MASK mask = {
+    .mask_list = {
+        stop,
+        goto_T,
+        go_over,
+        goto_T,
+        go_over,
+        goto_T,
+        go_over,
+        turnright,
+        goto_T,
+        go_over,
+        turnright,
+        goto_N,
+        go_over,
+        stop, 
+        turnback,
+        goto_T,
+        go_over,
+        turnleft,
+        goto_T,
+        go_over,
+        turnleft,
+        goto_N,
+        go_over,
+        stop
+    },
+    .mask_num = 6
+};
+
 void Mask_start(void)
 {
     //电机初始化
@@ -41,6 +85,9 @@ void Mask_start(void)
 
      //设置positionPID
      Car_setpositionpid(&car, pidposition);
+     
+     //设置任务流程
+     Mask_setmask(&car, mask);
 
     //开启任务定时中断
      tim_it_start(Mask_Timer_INST,Mask_Timer_INST_INT_IRQN);
@@ -61,9 +108,8 @@ void Mask_Timer_INST_IRQHandler(void)
     //获得左右轮差速
      float delta = Car_getdeltaspeed(&car);
 
-     Car_setbasespeed(&car, 25.0); //设置基础速度
 
-    // Mask_performmasks(&car);
+     Mask_performmasks(&car);
     
      Driver_setmotor_targetspeed(&(car.motor1), car.basespeed - delta);
      Driver_setmotor_targetspeed(&(car.motor2), car.basespeed + delta);
