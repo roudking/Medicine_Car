@@ -47,7 +47,7 @@ void K210_uartinit(void)
 // 						}
 // 					}
 
-// 					K210_numstatusIN(0);
+// 					  K210_numstatusIN(0);
 //                     K210_numdataIN(num);
 // 				}
 

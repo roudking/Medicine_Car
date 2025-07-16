@@ -1,9 +1,7 @@
 #ifndef _RASPBERRY_PI_H
 #define _RASPBERRY_PI_H
 
-#include "Raspberry_uart.h"
 #include "string.h"
-
 
 typedef struct{
      int modedata_update;
@@ -21,8 +19,6 @@ typedef struct
     MODE mode; // 模式
 	volatile RASPBERRY_STATUS status;
 }RASPBERRY;
-
-void Raspberry_init(void);
 
 //获得模式数据
 void Raspberry_modedataIN(MODE mode);

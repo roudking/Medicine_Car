@@ -33,10 +33,10 @@ void Mask_start(void)
      Laser_off(&(car.yled));
 
     //树莓派串口初始化
-     Raspberry_init();
+     Raspberry_uartinit();
 
     //K230串口初始化
-     K230_init();
+     K230_uartinit();
 
     //陀螺仪初始化
      Myhwt101_init(); 

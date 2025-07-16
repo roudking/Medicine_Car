@@ -1,12 +1,7 @@
 #include "K230.h"
 
-//树莓派缓存区
+// K230缓存区
 static K230 k230_temp;
-
-void K230_init(void)
-{
-   K230_uartinit();
-}
 
 
 void K230_posdataIN(float pos)

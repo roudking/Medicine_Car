@@ -5,6 +5,11 @@
         "mask.h": "c",
         "mask_perform.h": "c",
         "car.h": "c",
-        "driver.h": "c"
+        "driver.h": "c",
+        "my_delay.h": "c",
+        "key.h": "c",
+        "k210.h": "c",
+        "laser.h": "c",
+        "stdio.h": "c"
     }
 }

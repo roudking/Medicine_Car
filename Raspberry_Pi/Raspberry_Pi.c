@@ -3,11 +3,6 @@
 //树莓派缓存区
 static RASPBERRY raspberry_temp;
 
-void Raspberry_init(void)
-{
-   Raspberry_uartinit();
-}
-
 void Raspberry_modedataIN(MODE mode)
 {
     raspberry_temp.mode = mode; //设置模式

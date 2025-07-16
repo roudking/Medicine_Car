@@ -3,23 +3,6 @@
 //树莓派缓存区
 static K210 k210_temp;
 
-void K210_init(void)
-{
-   K210_uartinit();
-}
-
-
-void K210_setnumstatus(int status)
-{
-    k210_temp.status.numstatus = status;
-   if(status == 1){
-    K210_printf("{\"cmd\":\"num\"}\n");
-   }
-   else {
-    
-   }
-}
-
 void K210_numstatusIN(int status)
 {
     k210_temp.status.numstatus = status;
