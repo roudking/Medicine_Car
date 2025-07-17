@@ -5,6 +5,9 @@
 
 typedef struct
 {
+    double last_targetvalue; //上次目标值
+	double kff; //前馈系数
+	
 	double kp;
 	double ki;
 	double kd;

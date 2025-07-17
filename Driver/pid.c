@@ -103,12 +103,42 @@ double deltaPid_Cal(double targetvalue,double currentvalue,PID* pid)
 	return pid -> outvalue;
 }
 
+double deltaFFPid_Cal(double targetvalue,double currentvalue,PID* pid)
+{
+
+	double delta_u = targetvalue - pid->last_targetvalue;
+
+	pid->last_outvalue = pid->outvalue;
+	
+	double bias,current_bias,outputvalue; 
+	
+	current_bias = targetvalue - currentvalue;
+
+    bias = current_bias - pid->last_bias;
+	
+	pid -> outvalue += pid->kp * bias + pid->ki * current_bias + pid->kff * delta_u;
+
+	pid->last_bias = current_bias;
+
+	pid -> last_targetvalue = targetvalue;
+
+	if(pid->out_xianfu > 0)
+	{
+	  pid -> outvalue = xianfu(pid -> outvalue,-pid->out_xianfu,pid->out_xianfu);
+	}
+
+	return pid -> outvalue;
+
+}
+
 void pidmemory_clear(PID* pid)
 {
 	  pid->integral  = 0;
       pid -> last_bias = 0;
 	  pid -> outvalue  = 0;
 	  pid->last_outvalue = 0;
+
+	  pid->last_targetvalue = 0;
 }
 
 
