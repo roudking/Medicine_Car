@@ -28,7 +28,13 @@ double xianfu(double value, double min, double max);
 double position_divAPI_PID_Cal(double targetvalue,double currentvalue,double current_div,PID* pid);
 // 位置式 PID 计算函数（带输出限幅和积分抗饱和）
 double positionPid_Cal(double targetvalue, double currentvalue, PID* pid);
-double deltaPid_Cal(double targetvalue,double currentvalue,PID* pid);
+//位置式 FFPID 计算函数
+double positionFFPid_Cal(double targetvalue, double currentvalue, PID* pid);
+//增量式 PID 计算函数
+double deltaPid_Cal(double targetvalue, double currentvalue, PID* pid);
+//增量式 FFPID 计算函数
+double deltaFFPid_Cal(double targetvalue, double currentvalue, PID* pid);
+//清除PID内存
 void pidmemory_clear(PID* pid);
 
 #endif

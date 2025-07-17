@@ -80,6 +80,45 @@ double positionPid_Cal(double targetvalue, double currentvalue, PID* pid) {
     return pid->outvalue;
 }
 
+// 位置式 FF-PID 计算函数
+double positionFFPid_Cal(double targetvalue, double currentvalue, PID* pid) {
+    
+	double Uff = pid->kff * targetvalue;
+
+		pid->last_outvalue = pid->outvalue;
+	  // 1. 计算当前偏差
+    double bias = targetvalue - currentvalue;
+
+    // 2. 计算比例项
+    double P = pid->kp * bias;
+
+    // 3. 更新积分项（累积当前偏差）
+    pid->integral += bias;
+
+    // 4. 计算积分项和微分项
+    double I = pid->ki * pid->integral;
+	  //积分限幅 
+	 if(pid->integrate_xianfu > 0)
+	 {
+	  I = xianfu(I, -pid->integrate_xianfu, pid->integrate_xianfu);
+	 }
+    double D = pid->kd * (bias - pid->last_bias);
+
+    // 5. 计算总输出
+     pid->outvalue = P + I + D + Uff;
+
+	  // 6. 对输出进行限幅
+	  if(pid->out_xianfu > 0)
+		{
+			  pid->outvalue = xianfu(pid->outvalue, -pid->out_xianfu, pid->out_xianfu);
+		}
+
+    // 8. 更新状态
+    pid->last_bias = bias;      // 保存当前偏差，用于下一次微分计算
+
+    return pid->outvalue;
+}
+
 double deltaPid_Cal(double targetvalue,double currentvalue,PID* pid)
 {
 	
