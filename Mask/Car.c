@@ -441,7 +441,7 @@ MASK mask_c = {
      go_over,
      mask_load
     },
-    .mask_num = 20
+    .mask_num = 18
 };
 
 MASK mask_c1 = {

@@ -215,7 +215,6 @@ UART2.rxPinConfig.passedPeripheralType = scripting.forceWrite("Digital");
 UART2.rxPinConfig.$name                = "ti_driverlib_gpio_GPIOPinGeneric8";
 
 UART3.$name                            = "Raspberry_Pi_UART";
-UART3.targetBaudRate                   = 115200;
 UART3.enabledInterrupts                = ["RX"];
 UART3.peripheral.$assign               = "UART1";
 UART3.peripheral.rxPin.$assign         = "PB5";
@@ -236,15 +235,15 @@ UART4.enabledInterrupts                = ["RX"];
 UART4.peripheral.$assign               = "UART2";
 UART4.peripheral.rxPin.$assign         = "PB16";
 UART4.peripheral.txPin.$assign         = "PB17";
-UART4.txPinConfig.$name                = "ti_driverlib_gpio_GPIOPinGeneric11";
 UART4.txPinConfig.direction            = scripting.forceWrite("OUTPUT");
 UART4.txPinConfig.hideOutputInversion  = scripting.forceWrite(false);
 UART4.txPinConfig.onlyInternalResistor = scripting.forceWrite(false);
 UART4.txPinConfig.passedPeripheralType = scripting.forceWrite("Digital");
-UART4.rxPinConfig.$name                = "ti_driverlib_gpio_GPIOPinGeneric12";
+UART4.txPinConfig.$name                = "ti_driverlib_gpio_GPIOPinGeneric11";
 UART4.rxPinConfig.hideOutputInversion  = scripting.forceWrite(false);
 UART4.rxPinConfig.onlyInternalResistor = scripting.forceWrite(false);
 UART4.rxPinConfig.passedPeripheralType = scripting.forceWrite("Digital");
+UART4.rxPinConfig.$name                = "ti_driverlib_gpio_GPIOPinGeneric12";
 
 /**
  * Pinmux solution for unlocked pins/peripherals. This ensures that minor changes to the automatic solver in a future

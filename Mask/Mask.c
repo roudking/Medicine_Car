@@ -6,7 +6,6 @@ CAR car;
 MASK mask_start = {
     .mask_list = {        
        stop,
-       get_num,
        get_mode,
        wait_run,
        wait_keyoff,
@@ -81,14 +80,13 @@ void Mask_Timer_INST_IRQHandler(void)
     //获得左右轮差速
      float delta = Car_getdeltaspeed(&car);
 
-
      Mask_performmasks(&car);
 
      Driver_setmotor_targetspeed(&(car.motor1), car.basespeed - delta);
      Driver_setmotor_targetspeed(&(car.motor2), car.basespeed + delta);
 
 
-    // Driver_setspeed(&(car.motor1),&(car.motor2));
+    Driver_setspeed(&(car.motor1),&(car.motor2));
 
 }
 
