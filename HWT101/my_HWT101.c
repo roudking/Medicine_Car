@@ -35,7 +35,7 @@ void Myhwt101_init(void)
 	WitDelayMsRegister(Delayms);
 	HWT101_UARTStart();
 
-    delay_ms(1500);
+    delay_ms(2500);
 }
 
 

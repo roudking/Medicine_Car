@@ -6,8 +6,12 @@ CAR car;
 MASK mask_start = {
     .mask_list = {        
        stop,
+       yled,
        get_num,
+       nled,
+       yled,
        get_mode,
+       nled,
        mask_load
     },
     .mask_num = 4,
