@@ -6,12 +6,11 @@ CAR car;
 MASK mask_start = {
     .mask_list = {        
        stop,
+       get_num,
        get_mode,
-       wait_run,
-       wait_keyoff,
        mask_load
     },
-    .mask_num = 12
+    .mask_num = 4,
 };
 
 void Mask_start(void)

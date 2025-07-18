@@ -10,6 +10,7 @@
         "key.h": "c",
         "k210.h": "c",
         "laser.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "string.h": "c"
     }
 }

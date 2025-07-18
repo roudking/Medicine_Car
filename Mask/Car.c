@@ -244,24 +244,12 @@ int Car_turnbackfuc(CAR *car)
 //get_num
 int Car_getnumfuc(CAR *car)
 {
-    static int pc = 0;
-    if(pc == 0)
-    {
-        K210_numstatusIN(1); //启动K210获取数字 标志位置位
-        K210_printf("{\"cmd\":\"num\"}\n");
-        pc++;
-        return 0; //开始获取
+    K210_getnumdata(&(car->k210)); //获取数字
+    if(car->k210.num[0] == 0) {
+         return 0; //未获取到数字
     }
     else {
-        K210_getnumstatus(&(car->k210));
-        if(car->k210.status.numstatus == 1) {
-            return 0; //保持当前状态
-        }
-        else {
-           K210_getnumdata(&(car->k210)); //获取数字
-            pc = 0; //重置计数器
-            return 1; //获取完成
-        }
+        return 1; //获取到数字
     }
 }
 
@@ -376,6 +364,9 @@ int Car_waitstartfuc(CAR *car)
 MASK mask_a = {
     .mask_list = {    
        stop,  
+       wait_keyoff,
+       wait_run,
+
        goto_T,
        go_over,
        goto_T,
@@ -399,6 +390,9 @@ MASK mask_a = {
 MASK mask_b = {
     .mask_list = {    
        stop,  
+       wait_keyoff,
+       wait_run,
+
        goto_T,
        go_over,
        goto_T,
@@ -436,8 +430,8 @@ MASK mask_c = {
      goto_T,
      go_over,
      turnright,
-     goto_T,
      get_num,
+     goto_T,
      go_over,
      mask_load
     },
@@ -447,8 +441,8 @@ MASK mask_c = {
 MASK mask_c1 = {
     .mask_list = {    
     turnright,
-    goto_T,
     get_num,
+    goto_T,
     go_over,
     mask_load
     },
@@ -458,8 +452,8 @@ MASK mask_c1 = {
 MASK mask_c2 = {
     .mask_list = {    
     turnleft,
+    get_num,   
     goto_T,
-    get_num,
     go_over,
     mask_load
     },
@@ -511,7 +505,8 @@ int Car_maskloadfuc(CAR *car)
     }
     else if(pc == 1)
     {
-      if(car->k210.num[0] == car->target_num || car->k210.num[1] == car->target_num)
+      if(car->k210.num[0] == car->target_num || car->k210.num[1] == car->target_num || car->k210.num[2] == car->target_num ||
+         car->k210.num[3] == car->target_num || car->k210.num[4] == car->target_num || car->k210.num[5] == car->target_num)
       {
         Car_setmask(car, mask_c1);
       }
@@ -522,7 +517,8 @@ int Car_maskloadfuc(CAR *car)
     }
     else if(pc == 2)
     {
-      if(car->k210.num[0] == car->target_num || car->k210.num[1] == car->target_num)
+      if(car->k210.num[0] == car->target_num || car->k210.num[1] == car->target_num || car->k210.num[2] == car->target_num ||
+         car->k210.num[3] == car->target_num || car->k210.num[4] == car->target_num || car->k210.num[5] == car->target_num)
       {
         Car_setmask(car, mask_c3);
       }
