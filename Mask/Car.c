@@ -125,6 +125,10 @@ void Car_getdistance(CAR *car)
 //     turnleft, //左转
 //     turnback, //掉头
 //     go_over, //过弯
+//     rled, //红色LED
+//     gled, //绿色LED
+//     yled, //黄色LED
+//     nled, //关闭LED
 //     goto_T, //到达T路口
 //     goto_N, //到达N路口
 //     get_num, //获取数字
@@ -141,6 +145,42 @@ int Car_stopfuc(CAR *car)
 {
     Car_setbasespeed(car,0.0);
     return 1;
+}
+
+//rled
+int Car_rledfuc(CAR *car)
+{
+    Laser_on(&(car->rled));
+    Laser_off(&(car->gled));
+    Laser_off(&(car->yled));
+    return 1; //操作完成
+}
+
+//gled
+int Car_gledfuc(CAR *car)
+{
+    Laser_off(&(car->rled));
+    Laser_on(&(car->gled));
+    Laser_off(&(car->yled));
+    return 1; //操作完成
+}
+
+//yled
+int Car_yledfuc(CAR *car)
+{
+    Laser_off(&(car->rled));
+    Laser_off(&(car->gled));
+    Laser_on(&(car->yled));
+    return 1; //操作完成
+}
+
+//nled
+int Car_nledfuc(CAR *car)
+{
+    Laser_off(&(car->rled));
+    Laser_off(&(car->gled));
+    Laser_off(&(car->yled));
+    return 1; //操作完成
 }
 
 //wait_keyon
@@ -279,7 +319,7 @@ int Car_gooverfuc(CAR *car)
 }
 
 //goto_T
-const float basespeed = 45.0; //基础速度
+const float basespeed = 35.0; //基础速度
 int Car_gotoTfuc(CAR *car)
 {
     Car_setbasespeed(car, basespeed);
@@ -325,6 +365,7 @@ int Car_getmodefuc(CAR *car)
          return 0; //保持当前状态
     }
 }
+
 
 //wait_run
 int Car_waitrunfuc(CAR *car)
@@ -413,7 +454,8 @@ MASK mask_b = {
 };
 
 MASK mask_c = {
-    .mask_list = {    
+    .mask_list = {
+     wait_run,
      stop,
      goto_T,
      go_over,
@@ -430,8 +472,9 @@ MASK mask_c = {
      goto_T,
      go_over,
      turnright,
-     get_num,
+
      goto_T,
+     get_num,
      go_over,
      mask_load
     },
@@ -441,8 +484,9 @@ MASK mask_c = {
 MASK mask_c1 = {
     .mask_list = {    
     turnright,
-    get_num,
+
     goto_T,
+    get_num,    
     go_over,
     mask_load
     },
@@ -452,8 +496,9 @@ MASK mask_c1 = {
 MASK mask_c2 = {
     .mask_list = {    
     turnleft,
-    get_num,   
+    
     goto_T,
+    get_num,      
     go_over,
     mask_load
     },

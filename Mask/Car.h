@@ -35,6 +35,10 @@ typedef enum
    mask_load,
    echo_park,
    wait_run,
+   rled,
+   gled,
+   yled,
+   nled,
    wait_start,
    get_mode,
    stop
@@ -104,6 +108,18 @@ void Car_getdistance(CAR *car);
 //任务流程
 //stop
 int Car_stopfuc(CAR *car);
+
+//rled
+int Car_rledfuc(CAR *car);
+
+//gled
+int Car_gledfuc(CAR *car);
+
+//yled
+int Car_yledfuc(CAR *car);
+
+//nled
+int Car_nledfuc(CAR *car);
 
 //wait_keyon
 int Car_waitkeyonfuc(CAR *car);

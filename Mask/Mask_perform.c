@@ -4,6 +4,14 @@ int Mask_performmask(CAR *car, MASK_ENUM mask_enum)
 {
 	  switch(mask_enum)
 		{
+			case rled:
+					return Car_rledfuc(car); break;
+			case gled:
+					return Car_gledfuc(car); break;
+			case yled:
+					return Car_yledfuc(car); break;
+			case nled:
+					return Car_nledfuc(car); break;
 			case wait_keyon:
 					return Car_waitkeyonfuc(car); break;
 			case wait_keyoff:

@@ -36,6 +36,9 @@ void Mask_start(void)
     //K230串口初始化
      K230_uartinit();
 
+    //K210串口初始化
+     K210_uartinit();
+
     //陀螺仪初始化
      Myhwt101_init(); 
      Myhwt101_resetz(&(car.imu));

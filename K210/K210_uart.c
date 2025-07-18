@@ -41,11 +41,13 @@ void Debugger_UART_INST_IRQHandler(void)
 					//将拿到的数字 一位一位存进num[6]
 					int num[6] = {0, 0, 0, 0, 0, 0};
 					int len = strlen(num_str);
-					for (int i = 0; i < len; i++) {
-						if (i < 6) {
-							num[i] = num_str[i] - '0'; // 字符转数字
-						}
+					for (int i = 0; i < 6; i++) {
+                        if (i < len)
+                            num[i] = num_str[i] - '0'; // 字符转数字
+                        else
+							num[i] = 0; // 超出部分清0
 					}
+
                  //对数组num[6]进行排序从大到小
                     for (int j = 0; j < 6 - 1; j++) {
                         for (int k = 0; k < 6 - j - 1; k++) {
