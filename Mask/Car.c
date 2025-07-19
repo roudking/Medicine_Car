@@ -416,9 +416,11 @@ MASK mask_a = {
        goto_N,
        go_over,
        stop,
+       yled,
        echo_park,      
        wait_start,
 
+       nled,
        turnback,
        goto_N,
        go_over,
@@ -442,9 +444,11 @@ MASK mask_b = {
        goto_N,
        go_over,
        stop,
+       yled,
        echo_park,      
        wait_start,
 
+       nled,
        turnback,
        goto_N,
        go_over,
@@ -465,9 +469,11 @@ MASK mask_c = {
      goto_N,
      go_over,
      stop,
+     yled,
      echo_park,
      wait_start,
 
+     nled,
      turnback,
      goto_T,
      go_over,
@@ -510,6 +516,7 @@ MASK mask_c3 = {
         turnright,
         goto_N,
         go_over,
+        rled,
         stop
     },
     .mask_num = 4
@@ -520,6 +527,7 @@ MASK mask_c4 = {
         turnleft,
         goto_N,
         go_over,
+        rled,
         stop
     },
     .mask_num = 4
