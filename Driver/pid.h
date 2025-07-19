@@ -5,19 +5,22 @@
 
 typedef struct
 {
-    double last_targetvalue; //上次目标值
+
 	double kff; //前馈系数
-	
-	double kp;
-	double ki;
-	double kd;
+	double kp; //比例系数
+	double ki; //积分系数
+	double kd; //微分系数
+
+	double out_xianfu; //输出限幅
+	double integrate_xianfu; //积分限幅
+
+    double last_targetvalue; //上次目标值	
 	double last_bias;  //上次偏差
 	double last2_bias; //上上次偏差
-	double integral;
-	double outvalue;
-	double last_outvalue;
-	double out_xianfu;
-	double integrate_xianfu;
+	double integral;   //积分值
+	double outvalue;   //输出值
+	double last_outvalue; //上次输出值
+
 }PID;
 
 
