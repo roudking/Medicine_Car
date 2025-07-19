@@ -7,27 +7,27 @@ double xianfu(double value, double min, double max) {
     return value;
 }
 
-double position_divAPI_PID_Cal(double targetvalue,double currentvalue,double current_div,PID* pid) {
-	
+PID_TYPE position_divAPI_PID_Cal(PID_TYPE targetvalue, PID_TYPE currentvalue, PID_TYPE current_div, PID* pid) {
+
 	pid->last_outvalue = pid->outvalue;
 	// 1. 计算当前偏差
-	double bias = targetvalue - currentvalue;
+	PID_TYPE bias = targetvalue - currentvalue;
 
 	// 2. 计算比例项
-	double P = pid->kp * bias;
+	PID_TYPE P = pid->kp * bias;
 
 	// 3. 更新积分项（累积当前偏差）
 	pid->integral += bias;
 
 	// 4. 计算积分项和微分项
-	double I = pid->ki * pid->integral;
+	PID_TYPE I = pid->ki * pid->integral;
 		  //积分限幅 
 	if(pid->integrate_xianfu > 0)
 	 {
 	  I = xianfu(I, -pid->integrate_xianfu, pid->integrate_xianfu);
 	 }
-	 
-	double D = current_div * pid->kd;
+
+	PID_TYPE D = current_div * pid->kd;
 
 	// 5. 计算总输出
 	   pid->outvalue = P + I + D;
@@ -43,27 +43,26 @@ double position_divAPI_PID_Cal(double targetvalue,double currentvalue,double cur
 
 
 // 位置式 PID 计算函数（带输出限幅和积分抗饱和）
-double positionPid_Cal(double targetvalue, double currentvalue, PID* pid) {
-    
-	
+PID_TYPE positionPid_Cal(PID_TYPE targetvalue, PID_TYPE currentvalue, PID* pid) {
+
 		pid->last_outvalue = pid->outvalue;
 	  // 1. 计算当前偏差
-    double bias = targetvalue - currentvalue;
+    PID_TYPE bias = targetvalue - currentvalue;
 
     // 2. 计算比例项
-    double P = pid->kp * bias;
+    PID_TYPE P = pid->kp * bias;
 
     // 3. 更新积分项（累积当前偏差）
     pid->integral += bias;
 
     // 4. 计算积分项和微分项
-    double I = pid->ki * pid->integral;
+    PID_TYPE I = pid->ki * pid->integral;
 	  //积分限幅 
 	 if(pid->integrate_xianfu > 0)
 	 {
 	  I = xianfu(I, -pid->integrate_xianfu, pid->integrate_xianfu);
 	 }
-    double D = pid->kd * (bias - pid->last_bias);
+    PID_TYPE D = pid->kd * (bias - pid->last_bias);
 
     // 5. 计算总输出
      pid->outvalue = P + I + D;
@@ -81,28 +80,28 @@ double positionPid_Cal(double targetvalue, double currentvalue, PID* pid) {
 }
 
 // 位置式 FF-PID 计算函数
-double positionFFPid_Cal(double targetvalue, double currentvalue, PID* pid) {
-    
-	double Uff = pid->kff * targetvalue;
+PID_TYPE positionFFPid_Cal(PID_TYPE targetvalue, PID_TYPE currentvalue, PID* pid) {
+
+	PID_TYPE Uff = pid->kff * targetvalue;
 
 		pid->last_outvalue = pid->outvalue;
 	  // 1. 计算当前偏差
-    double bias = targetvalue - currentvalue;
+    PID_TYPE bias = targetvalue - currentvalue;
 
     // 2. 计算比例项
-    double P = pid->kp * bias;
+    PID_TYPE P = pid->kp * bias;
 
     // 3. 更新积分项（累积当前偏差）
     pid->integral += bias;
 
     // 4. 计算积分项和微分项
-    double I = pid->ki * pid->integral;
+    PID_TYPE I = pid->ki * pid->integral;
 	  //积分限幅 
 	 if(pid->integrate_xianfu > 0)
 	 {
 	  I = xianfu(I, -pid->integrate_xianfu, pid->integrate_xianfu);
 	 }
-    double D = pid->kd * (bias - pid->last_bias);
+    PID_TYPE D = pid->kd * (bias - pid->last_bias);
 
     // 5. 计算总输出
      pid->outvalue = P + I + D + Uff;
@@ -120,12 +119,12 @@ double positionFFPid_Cal(double targetvalue, double currentvalue, PID* pid) {
 }
 
 // 增量式 PID 计算函数
-double deltaPid_Cal(double targetvalue,double currentvalue,PID* pid)
+PID_TYPE deltaPid_Cal(PID_TYPE targetvalue, PID_TYPE currentvalue, PID* pid)
 {
 	
 		pid->last_outvalue = pid->outvalue;
-	
-	double bias,current_bias,outputvalue; 
+
+	PID_TYPE bias, current_bias, outputvalue;
 	
 	current_bias = targetvalue - currentvalue;
 
@@ -144,15 +143,15 @@ double deltaPid_Cal(double targetvalue,double currentvalue,PID* pid)
 	return pid -> outvalue;
 }
 
-double deltaFFPid_Cal(double targetvalue,double currentvalue,PID* pid)
+PID_TYPE deltaFFPid_Cal(PID_TYPE targetvalue, PID_TYPE currentvalue, PID* pid)
 {
 
-	double delta_u = targetvalue - pid->last_targetvalue;
+	PID_TYPE delta_u = targetvalue - pid->last_targetvalue;
 
 	pid->last_outvalue = pid->outvalue;
-	
-	double bias,current_bias,outputvalue; 
-	
+
+	PID_TYPE bias, current_bias, outputvalue;
+
 	current_bias = targetvalue - currentvalue;
 
     bias = current_bias - pid->last_bias;
@@ -174,12 +173,12 @@ double deltaFFPid_Cal(double targetvalue,double currentvalue,PID* pid)
 
 void pidmemory_clear(PID* pid)
 {
-	  pid->integral  = 0;
-      pid->last_bias = 0;
-	  pid->last2_bias = 0;
-	  pid->outvalue  = 0;
-	  pid->last_outvalue = 0;
-	  pid->last_targetvalue = 0;
+	  pid->integral  = 0.0;
+      pid->last_bias = 0.0;
+	  pid->last2_bias = 0.0;
+	  pid->outvalue  = 0.0;
+	  pid->last_outvalue = 0.0;
+	  pid->last_targetvalue = 0.0;
 }
 
 

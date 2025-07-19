@@ -3,41 +3,44 @@
 
 #include "math.h"
 
+typedef double PID_TYPE;
+// typedef float PID_TYPE;
+
 typedef struct
 {
 
-	double kff; //前馈系数
-	double kp; //比例系数
-	double ki; //积分系数
-	double kd; //微分系数
+	PID_TYPE kff; //前馈系数
+	PID_TYPE kp; //比例系数
+	PID_TYPE ki; //积分系数
+	PID_TYPE kd; //微分系数
 
-	double out_xianfu; //输出限幅
-	double integrate_xianfu; //积分限幅
+	PID_TYPE out_xianfu; //输出限幅
+	PID_TYPE integrate_xianfu; //积分限幅
 
-    double last_targetvalue; //上次目标值	
-	double last_bias;  //上次偏差
-	double last2_bias; //上上次偏差
-	double integral;   //积分值
-	double outvalue;   //输出值
-	double last_outvalue; //上次输出值
+    PID_TYPE last_targetvalue; //上次目标值	
+	PID_TYPE last_bias;  //上次偏差
+	PID_TYPE last2_bias; //上上次偏差
+	PID_TYPE integral;   //积分值
+	PID_TYPE outvalue;   //输出值
+	PID_TYPE last_outvalue; //上次输出值
 
 }PID;
 
 
 //PID相关数学函数
   //限幅函数
-double xianfu(double value, double min, double max);
+PID_TYPE xianfu(PID_TYPE value, PID_TYPE min, PID_TYPE max);
 
 //暴露微分
-double position_divAPI_PID_Cal(double targetvalue,double currentvalue,double current_div,PID* pid);
+PID_TYPE position_divAPI_PID_Cal(PID_TYPE targetvalue, PID_TYPE currentvalue, PID_TYPE current_div, PID* pid);
 // 位置式 PID 计算函数（带输出限幅和积分抗饱和）
-double positionPid_Cal(double targetvalue, double currentvalue, PID* pid);
+PID_TYPE positionPid_Cal(PID_TYPE targetvalue, PID_TYPE currentvalue, PID* pid);
 //位置式 FFPID 计算函数
-double positionFFPid_Cal(double targetvalue, double currentvalue, PID* pid);
+PID_TYPE positionFFPid_Cal(PID_TYPE targetvalue, PID_TYPE currentvalue, PID* pid);
 //增量式 PID 计算函数
-double deltaPid_Cal(double targetvalue, double currentvalue, PID* pid);
+PID_TYPE deltaPid_Cal(PID_TYPE targetvalue, PID_TYPE currentvalue, PID* pid);
 //增量式 FFPID 计算函数
-double deltaFFPid_Cal(double targetvalue, double currentvalue, PID* pid);
+PID_TYPE deltaFFPid_Cal(PID_TYPE targetvalue, PID_TYPE currentvalue, PID* pid);
 //清除PID内存
 void pidmemory_clear(PID* pid);
 
