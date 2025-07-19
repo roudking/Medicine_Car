@@ -18,7 +18,7 @@ PID pidR = {
 PID pidtrance = {
     .kp = 0.75,
     .ki = 0.00,
-    .kd = 2.77,
+    .kd = 3.97,
     .out_xianfu = 6.5
 };
 
@@ -30,9 +30,9 @@ PID pidturn = {
 };
 
 PID pidposition = {
-    .kp = 9.5,
+    .kp = 9.0,
     .ki = 0.00,
-    .kd = 11.0,
+    .kd = 12.2,
     .out_xianfu = 20.0
 };
 
@@ -295,7 +295,7 @@ int Car_getnumfuc(CAR *car)
 
 
 //go_over
-const float go_over_distance = 550.0; //过弯距离
+const float go_over_distance = 960.0; //过弯距离
 int Car_gooverfuc(CAR *car)
 {
     static int pc = 0;
@@ -319,7 +319,7 @@ int Car_gooverfuc(CAR *car)
 }
 
 //goto_T
-const float basespeed = 35.0; //基础速度
+const float basespeed = 30.0; //基础速度
 int Car_gotoTfuc(CAR *car)
 {
     Car_setbasespeed(car, basespeed);
@@ -422,6 +422,8 @@ MASK mask_a = {
 
        nled,
        turnback,
+       goto_T,
+       go_over,
        goto_N,
        go_over,
        stop
@@ -450,6 +452,8 @@ MASK mask_b = {
 
        nled,
        turnback,
+       goto_T,
+       go_over,
        goto_N,
        go_over,
        stop

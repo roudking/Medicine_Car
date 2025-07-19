@@ -53,7 +53,7 @@ void Mask_start(void)
     //舵机初始化
      Servo_create(&(car.servo), servo_config);
      Servo_init(&(car.servo));
-     Servo_setangle(&(car.servo), 103.0f);
+     Servo_setangle(&(car.servo), 109.0f);
 
     //设置trancePID
      Car_settrancepid(&car, pidtrance);
