@@ -11,7 +11,8 @@ typedef struct
 	double kp;
 	double ki;
 	double kd;
-	double last_bias;
+	double last_bias;  //上次偏差
+	double last2_bias; //上上次偏差
 	double integral;
 	double outvalue;
 	double last_outvalue;

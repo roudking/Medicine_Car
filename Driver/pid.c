@@ -119,6 +119,7 @@ double positionFFPid_Cal(double targetvalue, double currentvalue, PID* pid) {
     return pid->outvalue;
 }
 
+// 增量式 PID 计算函数
 double deltaPid_Cal(double targetvalue,double currentvalue,PID* pid)
 {
 	
@@ -129,9 +130,10 @@ double deltaPid_Cal(double targetvalue,double currentvalue,PID* pid)
 	current_bias = targetvalue - currentvalue;
 
   bias = current_bias - pid->last_bias;
-	
-	pid -> outvalue += pid->kp * bias + pid->ki * current_bias;
 
+	pid -> outvalue += pid->kp * bias + pid->ki * current_bias + pid->kd * (current_bias - 2*pid->last_bias + pid->last2_bias);
+
+	pid->last2_bias = pid->last_bias; // 保存上上次偏差
 	pid->last_bias = current_bias;
 	
 	if(pid->out_xianfu > 0)
