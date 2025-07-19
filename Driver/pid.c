@@ -176,6 +176,7 @@ void pidmemory_clear(PID* pid)
 {
 	  pid->integral  = 0;
       pid -> last_bias = 0;
+	  pid -> last2_bias = 0;
 	  pid -> outvalue  = 0;
 	  pid->last_outvalue = 0;
 
