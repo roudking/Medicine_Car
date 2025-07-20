@@ -56,14 +56,9 @@ void Mask_performmasks(CAR *car)
 	if(car->mask.mask_pc < car->mask.mask_num)
 	 {
 		if(car->mask.mask_list[car->mask.mask_pc] == mask_load)
-		{
 			Mask_performmask(car,car->mask.mask_list[car->mask.mask_pc]);
-		}
-		else
-		{
-		  car->mask.mask_pc += Mask_performmask(car,car->mask.mask_list[car->mask.mask_pc]);
-		}
-
+		else	
+		    car->mask.mask_pc += Mask_performmask(car,car->mask.mask_list[car->mask.mask_pc]);
 	 }
 	else
 	 {
