@@ -401,140 +401,61 @@ int Car_waitstartfuc(CAR *car)
     }
 }
 
-//
+//发挥部分一去A暂停点
 MASK mask_a = {
-    .mask_list = {    
-       stop,  
-       wait_keyoff,
-       wait_run,
-
-       goto_T,
-       go_over,
-       goto_T,
-       go_over,
-       turnleft,
-       goto_N,
-       go_over,
-       stop,
-       yled,
-       echo_park,      
-       wait_start,
-
-       nled,
-       turnback,
-       goto_T,
-       go_over,
-       goto_N,
-       go_over,
-       stop
-    
-    },
-    .mask_num = 14
+    .mask_list = {
+        stop, wait_keyoff, wait_run, 
+        goto_T, go_over, goto_T, go_over, turnleft, goto_N, go_over, stop, yled,
+        echo_park, wait_start, nled, turnback, goto_T, go_over, goto_N, go_over, stop},
+    .mask_num = 19
 };
 
+//发挥部分一去B暂停点
 MASK mask_b = {
     .mask_list = {    
-       stop,  
-       wait_keyoff,
-       wait_run,
-
-       goto_T,
-       go_over,
-       goto_T,
-       go_over,
-       turnright,
-       goto_N,
-       go_over,
-       stop,
-       yled,
-       echo_park,      
-       wait_start,
-
-       nled,
-       turnback,
-       goto_T,
-       go_over,
-       goto_N,
-       go_over,
-       stop
+       stop, wait_keyoff, wait_run,
+       goto_T, go_over, goto_T, go_over, turnright, goto_N, go_over, stop, yled, echo_park, wait_start,
+       nled, turnback, goto_T, go_over, goto_N, go_over, stop
     },
-    .mask_num = 14
+    .mask_num = 19
 };
 
+//发挥部分二暂停点
 MASK mask_c = {
     .mask_list = {
-     wait_run,
-     stop,
-     goto_T,
-     go_over,
-     goto_T,
-     go_over,
-     turnright,
-     goto_N,
-     go_over,
-     stop,
-     yled,
-     echo_park,
-     wait_start,
-
-     nled,
-     turnback,
-     goto_T,
-     go_over,
-     turnright,
-
-     goto_T,
-     get_num,
-     go_over,
-     mask_load
+     wait_run, stop, goto_T, go_over, goto_T, go_over, turnright, goto_N, go_over, stop, yled, echo_park, wait_start,
+     nled, turnback, goto_T, go_over, turnright,
+     goto_T, get_num, go_over, mask_load
     },
-    .mask_num = 18
+    .mask_num = 21
 };
 
 MASK mask_c1 = {
     .mask_list = {    
-    turnright,
-
-    goto_T,
-    get_num,    
-    go_over,
-    mask_load
+    turnright, goto_T, get_num, go_over, mask_load
     },
     .mask_num = 5
 };
 
 MASK mask_c2 = {
     .mask_list = {    
-    turnleft,
-    
-    goto_T,
-    get_num,      
-    go_over,
-    mask_load
+     turnleft, goto_T, get_num, go_over, mask_load
     },
     .mask_num = 5
 };
 
 MASK mask_c3 = {
     .mask_list = {
-        turnright,
-        goto_N,
-        go_over,
-        rled,
-        stop
+     turnright, goto_N, go_over, rled, stop
     },
-    .mask_num = 4
+    .mask_num = 5
 };
 
 MASK mask_c4 = {
     .mask_list = {
-        turnleft,
-        goto_N,
-        go_over,
-        rled,
-        stop
+     turnleft, goto_N, go_over, rled, stop
     },
-    .mask_num = 4
+    .mask_num = 5
 };
 
 //mask_load
