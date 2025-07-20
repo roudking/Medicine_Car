@@ -417,7 +417,8 @@ MASK mask_a = {
     .mask_list = {
         stop, wait_keyoff, wait_run, 
         goto_T, go_over, goto_T, go_over, turnleft, goto_N, go_over, stop, yled,
-        echo_park, wait_start, nled, turnback, goto_T, go_over, goto_N, go_over, stop},
+        echo_park, wait_start, nled, turnback, goto_T, go_over, goto_N, go_over, stop
+    },
     .mask_num = 19
 };
 
