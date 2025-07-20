@@ -2,12 +2,15 @@
 
 
 //已整定pid
+//左轮速度环
 PID pidL = {
     .kp = 170.5,
     .ki =43.0,
     .kd = 0.0,
     .out_xianfu = 7199.0
 };
+
+//右轮速度环
 PID pidR = {
     .kp = 180.5,
     .ki =43.0,
@@ -15,6 +18,7 @@ PID pidR = {
     .out_xianfu = 7199.0
 };
 
+//循迹角度环
 PID pidtrance = {
     .kp = 0.75,
     .ki = 0.00,
@@ -22,6 +26,7 @@ PID pidtrance = {
     .out_xianfu = 6.5
 };
 
+//转向角度环
 PID pidturn = {
     .kp = 0.75,
     .ki = 0.00,
@@ -29,12 +34,18 @@ PID pidturn = {
     .out_xianfu = 35.0
 };
 
+//循迹位置环
 PID pidposition = {
     .kp = 9.0,
     .ki = 0.00,
     .kd = 12.2,
     .out_xianfu = 20.0
 };
+
+//未整定pid
+
+//暂无
+
 
 //载入任务
 static int Mask_getmasknum(MASK mask)
