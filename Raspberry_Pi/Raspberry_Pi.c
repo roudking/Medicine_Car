@@ -28,7 +28,6 @@ void Raspberry_getmodedata_update(RASPBERRY *raspberry)
     }
 }
 
-
 void Raspberry_runIN(int run)
 {
     raspberry_temp.status.run = run; //更新运行状态
