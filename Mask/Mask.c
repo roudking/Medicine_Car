@@ -14,7 +14,7 @@ MASK mask_start = {
        nled,
        mask_load
     },
-    .mask_num = 4,
+    .mask_num = 8,
 };
 
 void Mask_start(void)
